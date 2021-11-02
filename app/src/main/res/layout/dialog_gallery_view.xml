@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_margin="@dimen/_10sdp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:background="@color/black"
+        style="@style/Widget.AppCompat.Toolbar"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_zoom"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/zoom_icon"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:src="@drawable/close_icon"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

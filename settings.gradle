@@ -1,0 +1,3 @@
+include ':attendance_calender'
+include ':app'
+rootProject.name = "Organic India"

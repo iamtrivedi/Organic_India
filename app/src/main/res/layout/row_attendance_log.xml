@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/ll_row_line"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_detail_holder"
+        android:layout_toLeftOf="@+id/tv_react_to"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text=" SL#"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_index"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="Attendance Date"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:singleLine="true"
+                android:text="OIPL Code of Conduct 01.04.2021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="In Time"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_in_time"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="Admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="Out Time"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_outtime"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="24 May 2021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="In Time IP Address"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_in_time_ip"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="24 May 2021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="Out Time IP Address"
+                android:textStyle="bold"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_out_time_ip"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="24 May 2021"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/location_holder"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_view_location"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="#FFC107"
+            android:textSize="@dimen/_10sdp"
+            android:text="View In-Time Location"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+        <TextView
+            android:id="@+id/tv_view_out_location"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="#FFC107"
+            android:textSize="@dimen/_10sdp"
+            android:text="View Out-Time Location"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_30sdp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:background="#7FBF82"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@+id/ll_detail_holder"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+</RelativeLayout>

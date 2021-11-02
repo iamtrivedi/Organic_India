@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.mark_attendance.Mark_attendance">
+
+    <TextView
+        style="@style/Widget.AppCompat.Toolbar"
+        android:text="Mark Attendance"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:background="@color/app_grey"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_50sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="@dimen/_6sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/stock_grey"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:text="01-09-2021"
+                android:layout_toRightOf="@+id/iv_cal"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/iv_cal"
+                android:src="@drawable/ic_calendar"
+                android:padding="@dimen/_5sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_mark_attendance"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/purple_700"
+            android:text="Mark Attendance"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

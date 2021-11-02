@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:padding="@dimen/_10sdp"
+    android:background="@android:color/transparent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_10sdp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_detail_holder"
+            android:layout_toLeftOf="@+id/tv_react_to"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Employee Name"
+                    android:textStyle="bold"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_employeename"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:text="OIPL Code of Conduct 01.04.2021"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Designation"
+                    android:textStyle="bold"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_designation"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Date &amp; Time"
+                    android:textStyle="bold"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_date_time"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="24 May 2021"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_reject"
+                android:layout_weight=".5"
+                android:text="Reject"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:background="#E88079"
+                android:layout_height="@dimen/_35sdp"/>
+
+            <TextView
+                android:id="@+id/tv_accept"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight=".5"
+                android:text="Accept"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:background="#4CAF50"
+                android:layout_height="@dimen/_35sdp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_10sdp"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

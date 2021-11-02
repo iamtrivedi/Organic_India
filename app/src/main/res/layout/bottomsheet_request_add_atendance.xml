@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Widget.AppCompat.Toolbar"
+        android:text="Attendance Request From Mohd Irfan Date 15-09-2021"
+        android:textColor="#000"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:background="@color/app_grey"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#DCB338"
+            android:text="All field are required."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_15sdp"
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight=".5"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="In Time *"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/stock_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_start_time"
+                        android:text="10:00:00 AM"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/grey"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:src="@drawable/ic_login_hexgone"
+                        android:padding="@dimen/_5sdp"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight=".5"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Out Time *"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/stock_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_end_time"
+                        android:text="7:00:00 PM"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/grey"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:src="@drawable/ic_calendar"
+                        android:padding="@dimen/_5sdp"
+                        android:visibility="gone"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Reason *"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/ll_option"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/stock_grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_selected_option"
+                android:text="Select one"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/grey"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:src="@drawable/ic_arrow_bottom"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_option_list"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/grey"
+                android:text="Select reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_forget_to_mark"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/purple_700"
+                android:text="Forget to mark attendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_with_client"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/purple_700"
+                android:text="In Meeting with client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:text="Cancel"
+                android:gravity="center"
+                android:background="#CCC2C2"
+                android:textColor="@color/white"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@color/purple_700"
+                android:text="Submit"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:padding="@dimen/_10sdp"
+                android:layout_width="0dp"
+                android:layout_weight=".6"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_20sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

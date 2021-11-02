@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Organic India</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_month">Please select</string>
+    <string name="new_application_title"><font color="#000"><b>Enter New Application details </b></font><font color="#F44336">*</font><font color="#7E7575"> All field are required.</font></string>
+    <string name="leave_category"><font color="#000"><b>Leave Category </b></font><font color="#F44336">*</font></string>
+    <string name="start_date"><font color="#000"><b>Start Date </b></font><font color="#F44336">*</font></string>
+    <string name="end_date"><font color="#000"><b>End Date </b></font><font color="#F44336">*</font></string>
+    <string name="reason"><font color="#000"><b>Reason </b></font><font color="#F44336">*</font></string>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_manager_leave_option"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/purple_700"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/nav_tv_team_leave"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Team Leave Report"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/nav_team_leave_report"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Leave Report"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>

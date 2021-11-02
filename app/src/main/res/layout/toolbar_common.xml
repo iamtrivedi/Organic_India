@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    style="@style/Widget.AppCompat.Toolbar"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:src="@drawable/header_logo"
+        android:layout_centerInParent="true"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"/>
+
+    <ImageView
+        android:id="@+id/iv_drawer"
+        android:layout_marginLeft="10sp"
+        android:padding="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/nav_logo"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"/>
+
+</RelativeLayout>

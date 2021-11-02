@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/ll_row_line"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    style="@style/Widget.AppCompat.Toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_40sdp">
+
+    <LinearLayout
+        android:id="@+id/ll_detail_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/_10sdp"
+            android:singleLine="true"
+            android:text="1"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/tv_employeename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="OIPL Code of Conduct 01.04.2021"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:background="#DFE3EF"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</RelativeLayout>

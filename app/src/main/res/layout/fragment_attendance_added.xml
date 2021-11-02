@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.attendance_added.Attendance_added">
+
+    <RelativeLayout
+        style="@style/Widget.AppCompat.Toolbar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/purple_200" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/stock_radius_grey"
+            android:backgroundTint="@color/purple_200"
+            android:gravity="center"
+            android:padding="@dimen/_2sdp"
+            android:text="  Mark Attendance  "
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:background="@color/purple_200"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Already Attendanced"
+        android:textColor="#000"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:layout_margin="@dimen/_15sdp"
+        android:orientation="vertical"
+        android:background="@drawable/stock_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_above="@+id/tv_update_timeout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_grey"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/sl_icon"
+                    android:background="@drawable/background_color_circle_selector"
+                    android:backgroundTint="@color/purple_200" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Emp-Id"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/emplyee_icon"
+                    android:background="@drawable/background_color_circle_selector"
+                    android:backgroundTint="@color/purple_200" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Employee Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_employeename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_grey"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/clock_icon"
+                    android:background="@drawable/background_color_circle_selector"
+                    android:backgroundTint="@color/purple_200" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="In Time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_in_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/clock_icon"
+                    android:background="@drawable/background_color_circle_selector"
+                    android:backgroundTint="@color/purple_200" />
+
+                <TextView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Out Time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_out_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/darkgrey"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_proceed"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="Update Time Out"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:background="@color/purple_200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/main_scroll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".ui.fragments.dashboard.Dashboard">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            style="@style/Widget.AppCompat.Toolbar"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/purple_200" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/stock_radius_grey"
+                android:backgroundTint="@color/purple_200"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:text="  Dashboard  "
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:background="@color/purple_200"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Organization Chart"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="@dimen/_15sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:backgroundTint="@color/black"
+            android:paddingBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/app_grey"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="2sp"/>
+
+     <LinearLayout
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <include layout="@layout/row_chart_card"/>
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/rcy_orgnization"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"/>
+
+     </LinearLayout>
+
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:scaleType="fitXY"-->
+<!--            android:src="@drawable/organization_chart"-->
+<!--            android:layout_height="@dimen/_200sdp"/>-->
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            android:id="@+id/ll_show_press_coverage"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/gradient_row"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/press_cov_icon"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:text="OI Press coverage"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_show_press_coverage"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/background_color_circle_selector"
+                android:src="@drawable/ic_arrow_bottom"
+                android:tint="@color/black" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_press_coverage"
+            android:visibility="gone"
+            android:background="@drawable/stock_grey"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcy_press_coverage"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:padding="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/ll_show_photo_gallery"
+            android:background="@drawable/gradient_row"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/gallery_icon"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:text="Photo Gallery"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_show_photo_gallery"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/background_color_circle_selector"
+                android:src="@drawable/ic_arrow_bottom"
+                android:tint="@color/black" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_gallery_container"
+            android:visibility="gone"
+            android:background="@drawable/stock_grey"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcy_photo_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

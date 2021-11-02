@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- date toolbar -->
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/calendarHeader"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="50dp">
+
+                <ImageButton
+                    android:id="@+id/previousButton"
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calleft" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/currentDateLabel"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:text="January 2018"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#494E59"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:background="@null"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/forwardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calright"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- eventDays header -->
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:id="@+id/abbreviationsBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/mondayLabel"
+            android:layout_width="0dp"
+            android:textSize="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_monday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:id="@+id/tuesdayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_tuesday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:id="@+id/wednesdayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_wednesday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:id="@+id/thursdayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_thursday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:id="@+id/fridayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_friday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:id="@+id/saturdayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_saturday"
+            android:textColor="#575A67" />
+
+        <TextView
+            android:layout_marginRight="5dp"
+            android:id="@+id/sundayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/material_calendar_sunday"
+            android:textColor="#575A67" />
+    </LinearLayout>
+
+    <TextView
+        android:background="#F1EAEA"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.organic.attendance_calender.extensions.CalendarViewPager
+            android:id="@+id/calendarViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
+
+</LinearLayout>
+
