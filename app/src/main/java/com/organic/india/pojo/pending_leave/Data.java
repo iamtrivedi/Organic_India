@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+    @SerializedName("leave_category_id")
+    @Expose
+    private Integer leaveCategoryId;
     @SerializedName("leave_category")
     @Expose
     private String leaveCategory;
@@ -14,6 +17,14 @@ public class Data {
     @SerializedName("short_name")
     @Expose
     private String shortName;
+
+    public Integer getLeaveCategoryId() {
+        return leaveCategoryId;
+    }
+
+    public void setLeaveCategoryId(Integer leaveCategoryId) {
+        this.leaveCategoryId = leaveCategoryId;
+    }
 
     public String getLeaveCategory() {
         return leaveCategory;

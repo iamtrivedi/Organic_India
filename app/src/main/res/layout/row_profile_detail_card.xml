@@ -17,13 +17,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="Employee Name"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+       <RelativeLayout
+           android:layout_marginLeft="@dimen/_10sdp"
+           android:layout_marginTop="@dimen/_5sdp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/tv_info"
+               android:text=""
+               android:textColor="@color/black"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+           <ImageView
+               android:id="@+id/iv_pic"
+               android:visibility="gone"
+               android:layout_width="@dimen/_100sdp"
+               android:layout_height="@dimen/_80sdp"/>
+
+       </RelativeLayout>
 
     </LinearLayout>

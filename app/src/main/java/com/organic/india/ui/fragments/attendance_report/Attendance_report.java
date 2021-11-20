@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,8 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
     String in_time_lat="";
     String in_time_long="";
+
+    String[] items={};
 
     Functions_common functions_common;
 
@@ -125,15 +128,20 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
             }
         });
 
+
         attendance_calendar.setOnDayClickListener(new OnDayClickListener(){
             @Override
             public void onDayClick(EventDay eventDay){
 
-                if (!is_manager){
-                    if (eventDay.getCalendar().getTimeInMillis()<=current_date.getTimeInMillis() && events.size()>0){
-                        select_operation_on_date(Constant.yyyy_mm_dd(eventDay.getCalendar()));
-                    }
+                if (eventDay.getCalendar().getTimeInMillis()<=current_date.getTimeInMillis() && events.size()>0){
+                    select_operation_on_date(Constant.yyyy_mm_dd(eventDay.getCalendar()),(AttendanceReport) eventDay.getData());
                 }
+
+//                if (!is_manager){
+//                    if (eventDay.getCalendar().getTimeInMillis()<=current_date.getTimeInMillis() && events.size()>0){
+//                        select_operation_on_date(Constant.yyyy_mm_dd(eventDay.getCalendar()));
+//                    }
+//                }
             }
         });
 
@@ -141,7 +149,10 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         functions_common=new Functions_common(getActivity(), new Functions_common.Permission_handle(){
             @Override
             public void granted(){
-                if(!is_manager){
+
+                boolean is_manager_account = is_manager && TextUtils.equals(employee_code,Organic_india.getInstance().getMe().getEmployeeCode()) && TextUtils.equals(employee_id,""+Organic_india.getInstance().getMe().getEmployeeId());
+
+                if(is_manager_account || !is_manager){
                     statusCheck();
                 }
             }
@@ -183,7 +194,6 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
                                case 200:
                                    arrange_attendance(response.body().getAttendanceReport());
-
                                    break;
 
                                default:
@@ -217,30 +227,43 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
         for (AttendanceReport report : this.attendanceReport){
 
-          if (!report.getPresent().isEmpty() && report.getLog().equals("Yes")){
-              events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_present));
-              continue;
-          }
+            try {
 
-          if (!report.getWeeklyOff().isEmpty()){
-              events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_weeknd));
-              continue;
-          }
 
-          if (!report.getStatus().isEmpty() && report.getStatus().equals("reject")){
-              events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_reject));
-              continue;
-          }
+                String data_report = report.getPresent()!=null?report.getPresent():"";
+                if (!data_report.isEmpty() && report.getLog().equals("Yes")){
+                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_present,report));
+                    continue;
+                }
 
-          if (!report.getHoliday().isEmpty() && report.getHoliday().equals("H")){
-              events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_holiday));
-              continue;
-          }
+                if (!report.getWeeklyOff().isEmpty()){
+                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_weeknd,report));
+                    continue;
+                }
 
-          if (report.getWeeklyOff().isEmpty() && report.getHoliday().isEmpty() && report.getPresent().isEmpty() && report.getStatus().equals("send")){
-              events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_no_presence));
-              continue;
-          }
+                if (!report.getStatus().isEmpty() && report.getStatus().equals("reject")){
+                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_reject,report));
+                    continue;
+                }
+
+                if (!report.getHoliday().isEmpty() && report.getHoliday().equals("H")){
+                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_holiday,report));
+                    continue;
+                }
+
+
+                String data_weekly_off = report.getWeeklyOff()!=null?report.getWeeklyOff():"";
+                String data_holiday = report.getHoliday()!=null?report.getHoliday():"";
+                String data_present = report.getPresent()!=null?report.getPresent():"";
+                String data_send = report.getStatus()!=null?report.getStatus():"";
+                if (data_weekly_off.isEmpty() && data_holiday.isEmpty() && data_present.isEmpty() && data_send.equals("send")){
+                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_no_presence,report));
+                    continue;
+                }
+
+            }catch (NullPointerException e){
+                continue;
+            }
 
         }
         attendance_calendar.setEvents(events);
@@ -287,14 +310,14 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
     }
 
 
-    void request_add_attendance(String date){
+    void request_add_attendance(String date,AttendanceReport report){
 
         if (in_time_lat.isEmpty() || in_time_long.isEmpty()){
 
-         functions_common.handle_permission(getActivity(),permissions);
+          functions_common.handle_permission(getActivity(),permissions);
 
         }else{
-            new Request_add_atendance(date, new Request_add_atendance.Action() {
+            new Request_add_atendance(date,report,new Request_add_atendance.Action() {
                 @Override
                 public void update_attendance(JsonObject jsonObject) {
                     jsonObject.addProperty("in_time_lat", in_time_lat);
@@ -499,10 +522,18 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         dialogFragment.show(getChildFragmentManager(), null);
     }
 
-    void select_operation_on_date(String date){
+    void select_operation_on_date(String date,AttendanceReport report){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
         alertDialog.setTitle("Please select");
-        String[] items = {"Add Attendance Request","View Attendance Log"};
+
+        boolean is_manager_account = is_manager && TextUtils.equals(employee_code,Organic_india.getInstance().getMe().getEmployeeCode()) && TextUtils.equals(employee_id,""+Organic_india.getInstance().getMe().getEmployeeId());
+
+        if (is_manager_account || !is_manager){
+            items = new String[]{"Regularize Attendance", "View Attendance Log"};
+        }else{
+            items = new String[]{"View Attendance Log"};
+        }
+
         int checkedItem = -1;
         alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             @Override
@@ -512,9 +543,9 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
                     public void run(){
 
                         if (items[which].equals("View Attendance Log")) {
-                            apply_date_via(date, true);
+                            apply_date_via(date, true,report);
                         } else {
-                            apply_date_via(date, false);
+                            apply_date_via(date, false,report);
                         }
 
                         valid_date_edit(date);
@@ -528,12 +559,12 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         alert.show();
     }
 
-    void apply_date_via(String date,boolean view_log){
+    void apply_date_via(String date,boolean view_log,AttendanceReport report){
 
         if (view_log){
             new View_attendance_log_sheet(date).show(getFragmentManager(),"View_attendance_log_sheet");
         }else{
-            request_add_attendance(date);
+            request_add_attendance(date,report);
 //            for (AttendanceReport report : attendanceReport){
 //
 //                if (report.getDate().equals(date) && report.getWeeklyOff().isEmpty() && report.getHoliday().isEmpty() && report.getPresent().isEmpty() && report.getStatus().equals("send")){

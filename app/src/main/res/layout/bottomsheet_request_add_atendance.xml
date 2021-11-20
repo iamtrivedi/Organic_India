@@ -27,7 +27,29 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/a_in_time_req"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Actual In Time  : "
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/a_out_time_req"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Actual Out Time  : "
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
             android:textColor="#DCB338"
+            android:visibility="gone"
             android:text="All field are required."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -64,12 +86,12 @@
 
                     <TextView
                         android:id="@+id/tv_start_time"
-                        android:text="10:00:00 AM"
-                        android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/grey"
-                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="10:00:00 AM"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_10sdp" />
 
                     <ImageView
                         android:src="@drawable/ic_login_hexgone"
@@ -150,12 +172,12 @@
 
             <TextView
                 android:id="@+id/tv_selected_option"
-                android:text="Select one"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/grey"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Select one"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_10sdp" />
 
             <ImageView
                 android:src="@drawable/ic_arrow_bottom"

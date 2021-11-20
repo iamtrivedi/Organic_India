@@ -15,10 +15,7 @@ import com.organic.india.pojo.pending_leave.Pending_leave;
 import com.organic.india.pojo.team_leave_request.Team_leave_request;
 import com.organic.india.pojo.team_listing.Team_listing;
 import com.organic.india.pojo.update_attendance.Update_attendance_res;
-import com.organic.india.ui.fragments.employee_attendance_report.Employee_attendance_report;
-
 import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -33,6 +30,9 @@ public interface Api_Interfaces {
 
     @POST("employee_login")
     Call<Logged_in_user> employee_login(@Body JsonObject jsonObject);
+
+    @POST("employee_profile")
+    Call<Logged_in_user> employee_profile(@Body JsonObject jsonObject);
 
 
     @POST("change_password")

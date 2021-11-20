@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,7 +36,7 @@ public class Attendance_location extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_location);
 
-        hasLocation=getIntent().hasExtra("LAT_LNG");
+        hasLocation=getIntent().hasExtra("LAT");
         if (hasLocation){
             lat=getIntent().getDoubleExtra("LAT",00);
             lng=getIntent().getDoubleExtra("LNG",00);
@@ -43,6 +44,10 @@ public class Attendance_location extends AppCompatActivity implements OnMapReady
 
         buildGoogleApiClient();
         initilizeMap();
+    }
+
+    public void back_press(View view){
+        onBackPressed();
     }
 
     private void buildGoogleApiClient() {
@@ -94,6 +99,7 @@ public class Attendance_location extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap){
         this.googleMap = googleMap;
+        this.googleMap.getUiSettings().setScrollGesturesEnabled(false);
         if (hasLocation) {
             LatLng currentPosition = new LatLng(lat, lng);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 16));

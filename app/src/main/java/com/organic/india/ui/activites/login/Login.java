@@ -70,7 +70,9 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<Logged_in_user> call, Response<Logged_in_user> response){
               try {
                   if (response.isSuccessful() && response.body().getStatus().equals(200)){
-                      Log.e("employee_login",""+response.body().toString());
+                      Log.e("employee_login",""+new Gson().toJson(response.body()));
+
+
                       SharedPreferenceUtils.putString(SharedPreferenceUtils.User_Creds.user_creds,new Gson().toJson(response.body().getData()));
                       Organic_india.getInstance().setMe(response.body().getData());
                       new Handler().postDelayed(new Runnable() {
@@ -96,6 +98,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onFailure(Call<Logged_in_user> call, Throwable t) {
               Log.e("employee_login",""+t.getMessage());
+                functions_common.dismiss_loader();
               functions_common.fail_request();
             }
         });

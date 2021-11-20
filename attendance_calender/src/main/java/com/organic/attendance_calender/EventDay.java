@@ -21,6 +21,8 @@ public class EventDay {
     private Object mDrawable;
     private int mLabelColor;
     private boolean mIsDisabled;
+    private Object data;
+
 
     /**
      * @param day Calendar object which represents a date of the event
@@ -38,6 +40,16 @@ public class EventDay {
         mDay = day;
         mDrawable = drawable;
     }
+
+    public EventDay(Calendar day, Object mDrawable, Object data) {
+        DateUtils.setMidnight(day);
+        this.mDay = day;
+        this.mDrawable = mDrawable;
+        this.data = data;
+    }
+
+
+
 
     /**
      * @param day      Calendar object which represents a date of the event
@@ -99,6 +111,11 @@ public class EventDay {
         return mDay;
     }
 
+
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public Object getData() {
+        return data;
+    }
 
     /**
      * @return Boolean value if day is not disabled

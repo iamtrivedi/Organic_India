@@ -117,12 +117,12 @@
             android:layout_height="@dimen/_20sdp"/>
 
         <TextView
-            android:text="No presence"
-            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_10sdp"
             android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="Absent"
+            android:textColor="@color/black" />
 
 
 

@@ -12,7 +12,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.JsonObject;
 import com.organic.india.R;
 import com.organic.india.common.Functions_common;
+import com.organic.india.pojo.attendance_report.AttendanceReport;
 import com.organic.india.singletone.Organic_india;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,13 +29,17 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
     String employee_id= ""+Organic_india.getInstance().getMe().getEmployeeId();
     String employee_code=""+Organic_india.getInstance().getMe().getEmployeeCode();
     String in_time_request="10:00:00 AM";
-    String out_time_request="7:00:00 AM";
+    String out_time_request="7:00:00 PM";
     String attendance_date="";
     String in_time_ip="";
     String reason="";
 
+    Calendar start_time_cal = Calendar.getInstance();
+    Calendar end_time_cal = Calendar.getInstance();
+
+    AttendanceReport report=new AttendanceReport();
+
     Functions_common functions_common;
-    Calendar calendar = Calendar.getInstance();
 
     View view;
     Unbinder unbinder;
@@ -48,10 +55,13 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
     @BindView(R.id.tv_submit)TextView tv_submit;
     @BindView(R.id.tv_cancel)TextView tv_cancel;
     @BindView(R.id.tv_title)TextView tv_title;
+    @BindView(R.id.a_in_time_req)TextView a_in_time_req;
+    @BindView(R.id.a_out_time_req)TextView a_out_time_req;
 
     Action action;
-    public Request_add_atendance(String attendance_date,Action action){
+    public Request_add_atendance(String attendance_date,AttendanceReport report,Action action){
         this.attendance_date = attendance_date;
+        this.report = report;
         this.action = action;
     }
 
@@ -66,6 +76,29 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
         functions_common=new Functions_common(getContext());
 
         in_time_ip=functions_common.getLocalIpAddress();
+
+        in_time_request = report.getActualInTime()!=null?report.getActualInTime():in_time_request;
+        out_time_request = report.getActualOutTime()!=null?report.getActualOutTime():out_time_request;
+
+        a_in_time_req.setText(report.getActualInTime()!=null?"Actual In Time : "+report.getActualInTime():"Actual In Time :");
+        a_out_time_req.setText(report.getActualOutTime()!=null?"Actual Out Time : "+report.getActualOutTime():"Actual Out Time :");
+
+        SimpleDateFormat format = new SimpleDateFormat("h:mm:ss aa");
+        try {
+
+            Date time_start = format.parse(in_time_request);
+            Date time_end = format.parse(out_time_request);
+
+            start_time_cal.setTime(time_start);
+            end_time_cal.setTime(time_end);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        tv_start_time.setText(in_time_request);
+        tv_end_time.setText(out_time_request);
 
 
         tv_end_time.setOnClickListener(this::onClick);
@@ -90,22 +123,26 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
                            @Override
                            public void onTimeSet(TimePicker tp, int sHour, int sMinute){
 
-                               calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), sHour, sMinute, 0);
-                               long timeInMillis = calendar.getTimeInMillis();
-                               java.text.DateFormat dateFormatter = new SimpleDateFormat("h:mm:ss aa");
+                               end_time_cal.set(end_time_cal.get(Calendar.YEAR), end_time_cal.get(Calendar.MONTH), end_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
+                               long timeInMillis = end_time_cal.getTimeInMillis();
                                Date date_c = new Date();
                                date_c.setTime(timeInMillis);
-                               calendar.setTime(date_c);
+                               end_time_cal.setTime(date_c);
 
-                               SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
-                               out_time_request = sdf.format(calendar.getTime());
+                               if (end_time_cal.after(start_time_cal)){
 
-                               tv_end_time.setText(out_time_request);
+                                   SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
+                                   out_time_request = sdf.format(end_time_cal.getTime());
+                                   tv_end_time.setText(out_time_request);
 
-                               Log.e("selected_time",""+calendar.getTime());
+                               }else{
+                                 functions_common.toast("selected invalid time");
+                               }
+
+                               Log.e("selected_time",""+end_time_cal.getTime());
 
                            }
-                       }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                       }, end_time_cal.get(Calendar.HOUR_OF_DAY), end_time_cal.get(Calendar.MINUTE), false);
                picker_end.show();
                picker_end.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
                picker_end.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
@@ -119,22 +156,25 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
                            @Override
                            public void onTimeSet(TimePicker tp, int sHour, int sMinute){
 
-                               calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), sHour, sMinute, 0);
-                               long timeInMillis = calendar.getTimeInMillis();
-                               java.text.DateFormat dateFormatter = new SimpleDateFormat("h:mm:ss aa");
+                               start_time_cal.set(start_time_cal.get(Calendar.YEAR), start_time_cal.get(Calendar.MONTH), start_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
+                               long timeInMillis = start_time_cal.getTimeInMillis();
                                Date date_c = new Date();
                                date_c.setTime(timeInMillis);
-                               calendar.setTime(date_c);
+                               start_time_cal.setTime(date_c);
 
-                               SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
-                               in_time_request = sdf.format(calendar.getTime());
+                               if (start_time_cal.before(end_time_cal)){
 
-                               tv_start_time.setText(out_time_request);
+                                   SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
+                                   in_time_request = sdf.format(start_time_cal.getTime());
+                                   tv_start_time.setText(out_time_request);
 
-                               Log.e("selected_time",""+calendar.getTime());
+                               }else{
+                                   functions_common.toast("selected invalid time");
+                               }
+                               Log.e("selected_time",""+start_time_cal.getTime());
 
                            }
-                       }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                       }, start_time_cal.get(Calendar.HOUR_OF_DAY), start_time_cal.get(Calendar.MINUTE), false);
                picker_star_time.show();
                picker_star_time.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
                picker_star_time.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));

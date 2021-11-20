@@ -294,6 +294,7 @@
 
             <ImageView
                 android:id="@+id/iv_view"
+                android:visibility="gone"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentRight="true"

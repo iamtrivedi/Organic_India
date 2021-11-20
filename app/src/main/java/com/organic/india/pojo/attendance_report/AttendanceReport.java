@@ -1,3 +1,4 @@
+
 package com.organic.india.pojo.attendance_report;
 
 import com.google.gson.annotations.Expose;
@@ -10,25 +11,31 @@ public class AttendanceReport {
     private Integer day;
     @SerializedName("date")
     @Expose
-    private String date="";
+    private String date;
     @SerializedName("holiday")
     @Expose
-    private String holiday="";
+    private String holiday;
     @SerializedName("weekly_off")
     @Expose
-    private String weeklyOff="";
+    private String weeklyOff;
     @SerializedName("status")
     @Expose
-    private String status="";
+    private String status;
     @SerializedName("attendance_id")
     @Expose
     private Integer attendanceId;
+    @SerializedName("actual_in_time")
+    @Expose
+    private String actualInTime;
+    @SerializedName("actual_out_time")
+    @Expose
+    private String actualOutTime;
     @SerializedName("present")
     @Expose
-    private String present="";
+    private String present;
     @SerializedName("log")
     @Expose
-    private String log="";
+    private String log;
 
     public Integer getDay() {
         return day;
@@ -78,6 +85,22 @@ public class AttendanceReport {
         this.attendanceId = attendanceId;
     }
 
+    public String getActualInTime() {
+        return actualInTime;
+    }
+
+    public void setActualInTime(String actualInTime) {
+        this.actualInTime = actualInTime;
+    }
+
+    public String getActualOutTime() {
+        return actualOutTime;
+    }
+
+    public void setActualOutTime(String actualOutTime) {
+        this.actualOutTime = actualOutTime;
+    }
+
     public String getPresent() {
         return present;
     }
@@ -93,4 +116,5 @@ public class AttendanceReport {
     public void setLog(String log) {
         this.log = log;
     }
+
 }

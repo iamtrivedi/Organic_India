@@ -17,30 +17,27 @@ public class Log {
     @SerializedName("in_time")
     @Expose
     private String inTime;
-    @SerializedName("out_time")
-    @Expose
-    private String outTime;
     @SerializedName("in_time_ip")
     @Expose
     private String inTimeIp;
-    @SerializedName("out_time_ip")
-    @Expose
-    private String outTimeIp;
     @SerializedName("in_time_lat")
     @Expose
     private String inTimeLat;
-    @SerializedName("out_time_lat")
-    @Expose
-    private String outTimeLat;
     @SerializedName("in_time_long")
     @Expose
     private String inTimeLong;
-    @SerializedName("out_time_log")
+    @SerializedName("out_time")
     @Expose
-    private String outTimeLog;
-    @SerializedName("DeviceLogID")
+    private String outTime;
+    @SerializedName("out_time_ip")
     @Expose
-    private String deviceLogID;
+    private String outTimeIp;
+    @SerializedName("out_time_lat")
+    @Expose
+    private String outTimeLat;
+    @SerializedName("out_time_long")
+    @Expose
+    private String outTimeLong;
 
     public Integer getLogId() {
         return logId;
@@ -74,28 +71,12 @@ public class Log {
         this.inTime = inTime;
     }
 
-    public String getOutTime() {
-        return outTime;
-    }
-
-    public void setOutTime(String outTime) {
-        this.outTime = outTime;
-    }
-
     public String getInTimeIp() {
         return inTimeIp;
     }
 
     public void setInTimeIp(String inTimeIp) {
         this.inTimeIp = inTimeIp;
-    }
-
-    public String getOutTimeIp() {
-        return outTimeIp;
-    }
-
-    public void setOutTimeIp(String outTimeIp) {
-        this.outTimeIp = outTimeIp;
     }
 
     public String getInTimeLat() {
@@ -106,14 +87,6 @@ public class Log {
         this.inTimeLat = inTimeLat;
     }
 
-    public String getOutTimeLat() {
-        return outTimeLat;
-    }
-
-    public void setOutTimeLat(String outTimeLat) {
-        this.outTimeLat = outTimeLat;
-    }
-
     public String getInTimeLong() {
         return inTimeLong;
     }
@@ -122,19 +95,35 @@ public class Log {
         this.inTimeLong = inTimeLong;
     }
 
-    public String getOutTimeLog() {
-        return outTimeLog;
+    public String getOutTime() {
+        return outTime;
     }
 
-    public void setOutTimeLog(String outTimeLog) {
-        this.outTimeLog = outTimeLog;
+    public void setOutTime(String outTime) {
+        this.outTime = outTime;
     }
 
-    public String getDeviceLogID() {
-        return deviceLogID;
+    public String getOutTimeIp() {
+        return outTimeIp;
     }
 
-    public void setDeviceLogID(String deviceLogID) {
-        this.deviceLogID = deviceLogID;
+    public void setOutTimeIp(String outTimeIp) {
+        this.outTimeIp = outTimeIp;
+    }
+
+    public String getOutTimeLat() {
+        return outTimeLat;
+    }
+
+    public void setOutTimeLat(String outTimeLat) {
+        this.outTimeLat = outTimeLat;
+    }
+
+    public String getOutTimeLong() {
+        return outTimeLong;
+    }
+
+    public void setOutTimeLong(String outTimeLong) {
+        this.outTimeLong = outTimeLong;
     }
 }

@@ -41,6 +41,7 @@ import com.organic.india.adapter.Leave_chart_adapter;
 import com.organic.india.adapter.Leave_type_spinner_adapter;
 import com.organic.india.common.Constant;
 import com.organic.india.common.Functions_common;
+import com.organic.india.data.Api_Interfaces;
 import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.attendance_log.Attendance_log;
 import com.organic.india.pojo.pending_leave.Data;
@@ -62,6 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,12 +86,18 @@ public class New_leave_application extends Fragment {
     String optional_leave="";
     Uri medical_certificate=null;
     String reason="";
+    int day_difference=0;
 
     Functions_common functions_common;
 
     List<Data> chart_data=new ArrayList<>();
+    List<Data> available_leaves=new ArrayList<>();
     Leave_chart_adapter adapter;
+    Leave_type_spinner_adapter leave_type_spinner_adapter;
     Calendar calendar = Calendar.getInstance();
+
+    Calendar cal_start_date= Calendar.getInstance();
+    Calendar cal_end_date= Calendar.getInstance();
 
     List<String> permissions = new ArrayList<>();
 
@@ -144,12 +152,15 @@ public class New_leave_application extends Fragment {
 
         get_leave_chart();
 
-        leave_spinner.setAdapter(new Leave_type_spinner_adapter(getContext(), Constant.leave_types()));
+
+        leave_type_spinner_adapter = new Leave_type_spinner_adapter(getContext(), available_leaves);
+        leave_spinner.setAdapter(leave_type_spinner_adapter);
         leave_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
-                ll_upload_file.setVisibility(Constant.leave_types().get(i).getLeave_id().equals("1")?View.VISIBLE:View.GONE);
-                leave_category_id=Constant.leave_types().get(i).getLeave_id();
+
+                ll_upload_file.setVisibility(available_leaves.get(i).getLeaveCategory().equals("Medical Leave (ML)")?View.VISIBLE:View.GONE);
+                leave_category_id=""+available_leaves.get(i).getLeaveCategoryId();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -209,9 +220,11 @@ public class New_leave_application extends Fragment {
          map.put("reason", RequestBody.create(MediaType.parse("text/plain"), reason));
          MultipartBody.Part prescription_part=null;
 
-         if(medical_certificate!=null){
+         if(medical_certificate!=null && day_difference>2){
+
              File file = new File(FileUtils.getPath(getContext(), medical_certificate));
              prescription_part = MultipartBody.Part.createFormData("medical_certificate", file.getName(), RequestBody.create(MediaType.parse(FileUtils.getMimeType(getContext(), medical_certificate)), file));
+
          }
 
          Api_instence.getRetrofitInstance().create_leave(map,prescription_part)
@@ -243,6 +256,8 @@ public class New_leave_application extends Fragment {
                                  Log.e("create_leave","json "+e.getMessage());
                              }
                          }else{
+                             functions_common.dismiss_loader();
+                             Log.e("create_leave","json "+response.message());
                              functions_common.toast("something went wrong");
                          }
                      }
@@ -252,9 +267,7 @@ public class New_leave_application extends Fragment {
                          functions_common.dismiss_loader();
                      }
                  });
-
-     }
-
+        }
 
     }
 
@@ -272,7 +285,7 @@ public class New_leave_application extends Fragment {
         }else if (end_date.isEmpty()){
             functions_common.toast("Please select ending date");
             return false;
-        }else if(leave_category_id.equals("1") && medical_certificate==null){
+        }else if(leave_category_id.equals("1") && medical_certificate==null && day_difference>2){
             functions_common.toast("Medical prescription is require for medical leave");
             return false;
         }else if (reason.isEmpty()){
@@ -301,6 +314,13 @@ public class New_leave_application extends Fragment {
                         chart_data.addAll(response.body().getData()!=null?response.body().getData():chart_data);
                         ll_leave_chart.setVisibility(View.VISIBLE);
                         adapter.notifyDataSetChanged();
+
+                        for (Data chart : chart_data){
+                            if (!chart.getPendingLeave().equals("0.00") && !chart.getPendingLeave().isEmpty()){
+                                available_leaves.add(chart);
+                            }
+                        }
+                        leave_type_spinner_adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -320,42 +340,57 @@ public class New_leave_application extends Fragment {
                 temp.set(Calendar.YEAR, year);
                 temp.set(Calendar.MONTH, monthOfYear);
                 temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                calendar.setTime(temp.getTime());
+                cal_start_date.setTime(temp.getTime());
 
-                tv_start_date.setText(Constant.formated_date(calendar));
-                start_date=Constant.yyyy_mm_dd(calendar);
+                tv_start_date.setText(Constant.formated_date(cal_start_date));
+                start_date=Constant.yyyy_mm_dd(cal_start_date);
 
             }
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        },cal_start_date.get(Calendar.YEAR), cal_start_date.get(Calendar.MONTH),cal_start_date.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
-
 
     }
 
 
     public void end_date(){
 
-        DatePickerDialog datePickerDialog= new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener(){
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth){
-                Calendar temp = Calendar.getInstance();
-                temp.set(Calendar.YEAR, year);
-                temp.set(Calendar.MONTH, monthOfYear);
-                temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                calendar.setTime(temp.getTime());
+        if (start_date.isEmpty()){
+            Toast.makeText(getContext(), "please add start date", Toast.LENGTH_SHORT).show();
+            return;
+        }else{
 
-                tv_end_date.setText(Constant.formated_date(calendar));
-                end_date=Constant.yyyy_mm_dd(calendar);
+            DatePickerDialog datePickerDialog= new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener(){
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth){
+                    Calendar temp = Calendar.getInstance();
+                    temp.set(Calendar.YEAR, year);
+                    temp.set(Calendar.MONTH, monthOfYear);
+                    temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    cal_end_date.setTime(temp.getTime());
 
-            }
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerDialog.show();
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
+                    long msDiff = cal_end_date.getTimeInMillis() - cal_start_date.getTimeInMillis();
+                    day_difference = (int) TimeUnit.MILLISECONDS.toDays(msDiff);
+
+                    if(day_difference<0){
+
+                        functions_common.toast("invalid date");
+
+                    }else{
+                        tv_end_date.setText(Constant.formated_date(cal_end_date));
+                        end_date=Constant.yyyy_mm_dd(cal_end_date);
+                    }
+                }
+            },cal_end_date.get(Calendar.YEAR), cal_end_date.get(Calendar.MONTH),cal_end_date.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.show();
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
+            datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
+
+        }
+
     }
 
     public interface Leave_actions{

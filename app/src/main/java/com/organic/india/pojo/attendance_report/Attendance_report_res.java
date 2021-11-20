@@ -12,9 +12,6 @@ public class Attendance_report_res {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("employees")
-    @Expose
-    private List<Employee> employees = null;
     @SerializedName("attendance_report")
     @Expose
     private List<AttendanceReport> attendanceReport = null;
@@ -35,14 +32,6 @@ public class Attendance_report_res {
         this.message = message;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
     public List<AttendanceReport> getAttendanceReport() {
         return attendanceReport;
     }
@@ -50,4 +39,5 @@ public class Attendance_report_res {
     public void setAttendanceReport(List<AttendanceReport> attendanceReport) {
         this.attendanceReport = attendanceReport;
     }
+
 }

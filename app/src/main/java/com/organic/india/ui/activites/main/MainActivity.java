@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                  break;
 
+
             case Constant.Route.Attendance_report:
 
                 loadFragment(Organic_india.getInstance().getMe().getIrm().equals("manager")?new Employee_attendance_report(new Employee_attendance_report.Team_player() {
@@ -150,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }):new Attendance_report(""+Organic_india.getInstance().getMe().getEmployeeId(),Organic_india.getInstance().getMe().getEmployeeCode(),false));
                 break;
+
+
 
             case Constant.Route.Change_password:
                 loadFragment(new Change_password(new Change_password.Actions() {
@@ -183,6 +186,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case Constant.Route.Team_leave_request:
+
+                Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
+
              //   loadFragment(new Team_leave_request_page());
                 break;
 
@@ -202,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) {
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.app_frame, fragment, fragmentTag);
-            transaction.addToBackStack(backStateName);
             transaction.commit();
         }
     }
