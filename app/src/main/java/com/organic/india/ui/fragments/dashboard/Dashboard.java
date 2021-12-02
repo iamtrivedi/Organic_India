@@ -1,12 +1,15 @@
 package com.organic.india.ui.fragments.dashboard;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,23 +19,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.organic.india.R;
+import com.organic.india.adapter.Image_slider_adapter;
 import com.organic.india.adapter.Organization_chart_adapter;
 import com.organic.india.adapter.Photo_gallery_adapter;
 import com.organic.india.adapter.Press_coverage_adapter;
+import com.organic.india.adapter.Slider_adapter;
+import com.organic.india.common.Functions_common;
 import com.organic.india.data.Api_instence;
 import com.organic.india.dialog.Gallery_dialog;
+import com.organic.india.dialog.Gallery_dialog_local_image;
+import com.organic.india.dialog.Update_app;
+import com.organic.india.pojo.dashboard.AppVersion;
 import com.organic.india.pojo.dashboard.Image;
 import com.organic.india.pojo.dashboard.OrganizationChart;
 import com.organic.india.pojo.dashboard.Pdf;
 import com.organic.india.pojo.logged_in_user.Logged_in_user;
 import com.organic.india.singletone.Organic_india;
 import com.organic.india.ui.activites.view_photo.Viewphoto_gallery;
+import com.organic.india.utils.helper.CenterZoomLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +86,8 @@ public class Dashboard extends Fragment implements View.OnClickListener {
     @BindView(R.id.position)TextView tv_position;
     @BindView(R.id.tv_name)TextView tv_name;
     @BindView(R.id.ll_row_chart)RelativeLayout ll_row_chart;
+    @BindView(R.id.imageslide)RecyclerView imageslide;
+    @BindView(R.id.ll_oi_journey)LinearLayout ll_oi_journey;
 
     String pic_images = "";
 
@@ -98,8 +111,8 @@ public class Dashboard extends Fragment implements View.OnClickListener {
 
                         startActivity(new Intent(getContext(), Viewphoto_gallery.class)
                                 .putExtra("images",pic_images)
-                                .putExtra("position",pos));
-
+                                .putExtra("position",pos)
+                                .putExtra("is_link",true));
                     }
                 }).show();
             }
@@ -140,7 +153,6 @@ public class Dashboard extends Fragment implements View.OnClickListener {
                     @Override
                     public void onResponse(Call<com.organic.india.pojo.dashboard.Dashboard> call, Response<com.organic.india.pojo.dashboard.Dashboard> response) {
                      if (response.isSuccessful()){
-
                        pdfs.removeAll(pdfs);
                        images.removeAll(images);
                        chartArrayList.removeAll(chartArrayList);
@@ -169,6 +181,27 @@ public class Dashboard extends Fragment implements View.OnClickListener {
                            chartArrayList.add(response.body().getOrganizationChart().get(i));
                        }
                          organization_chart_adapter.notifyDataSetChanged();
+
+                         try {
+                             PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+                             String version = pInfo.versionName;
+
+                             Log.e("app_version",""+version);
+
+                             for (AppVersion appVersion:response.body().getAppVersion()){
+                                 if (!appVersion.getVersionCode().equalsIgnoreCase(version)){
+                                     new Update_app(getContext()).show();
+                                     break;
+                                 }else{
+                                     Toast.makeText(getContext(), "Welcome to Organic India", Toast.LENGTH_SHORT).show();
+                                     break;
+                                 }
+                             }
+
+                         } catch (PackageManager.NameNotFoundException e) {
+                             e.printStackTrace();
+                         }
+                         ll_oi_journey.setVisibility(View.VISIBLE);
                      }
                     }
                     @Override
@@ -176,6 +209,23 @@ public class Dashboard extends Fragment implements View.OnClickListener {
 
                     }
                 });
+
+        imageslide.setLayoutManager(new CenterZoomLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        imageslide.setAdapter(new Slider_adapter(Functions_common.slides(), getContext(), new Slider_adapter.Selected_image() {
+            @Override
+            public void image(int pos) {
+                new Gallery_dialog_local_image(getContext(), Functions_common.slides().get(pos), new Gallery_dialog_local_image.React() {
+                    @Override
+                    public void full_image() {
+
+                        startActivity(new Intent(getContext(), Viewphoto_gallery.class)
+                                .putExtra("images",pic_images)
+                                .putExtra("position",pos)
+                                .putExtra("is_link",false));
+                    }
+                }).show();
+            }
+        }));
     }
 
     @Override

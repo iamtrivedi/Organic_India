@@ -34,7 +34,7 @@ public class Request {
     private Object checkIn;
     @SerializedName("check_out")
     @Expose
-    private String checkOut;
+    private Object checkOut;
     @SerializedName("in_time_request")
     @Expose
     private String inTimeRequest;
@@ -71,6 +71,9 @@ public class Request {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("reason_name")
+    @Expose
+    private String reasonName;
 
     public String getDesignation() {
         return designation;
@@ -144,11 +147,11 @@ public class Request {
         this.checkIn = checkIn;
     }
 
-    public String getCheckOut() {
+    public Object getCheckOut() {
         return checkOut;
     }
 
-    public void setCheckOut(String checkOut) {
+    public void setCheckOut(Object checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -247,4 +250,13 @@ public class Request {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getReasonName() {
+        return reasonName;
+    }
+
+    public void setReasonName(String reasonName) {
+        this.reasonName = reasonName;
+    }
+
 }

@@ -38,7 +38,7 @@ public class Attendance_request_adapter extends RecyclerView.Adapter<Attendance_
 //                " Check in : "+data.get(position).getInTimeRequest()+"\n"+
 //                " Check out : "+data.get(position).getOutTimeRequest();
 
-        holder.tv_index.setText(""+((position+1)));
+        holder.tv_index.setText(""+data.get(position).getId());
         holder.tv_employeename.setText(data.get(position).getName());
         holder.tv_designation.setText(data.get(position).getDesignation());
         holder.tv_startdate_time.setText(data.get(position).getInTimeRequest());

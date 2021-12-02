@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:visibility="gone"
             style="@style/Widget.AppCompat.Toolbar"
             android:orientation="vertical"
             android:layout_width="match_parent"

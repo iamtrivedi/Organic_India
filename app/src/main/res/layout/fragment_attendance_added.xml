@@ -7,6 +7,7 @@
     tools:context=".ui.fragments.attendance_added.Attendance_added">
 
     <RelativeLayout
+        android:visibility="gone"
         style="@style/Widget.AppCompat.Toolbar"
         android:orientation="vertical"
         android:layout_width="match_parent"

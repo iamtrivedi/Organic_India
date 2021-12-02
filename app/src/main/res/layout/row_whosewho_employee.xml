@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_margin="@dimen/_10sdp"
+    android:padding="@dimen/_10sdp"
+    android:orientation="horizontal"
+    android:backgroundTint="@color/teal_200"
+    android:background="@drawable/shape_rect"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_pic"
+        android:src="@color/white"
+        app:riv_corner_radius="@dimen/_5sdp"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:text="name"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_department"
+            android:text="Department"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_contact"
+            android:text="Contact"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:text="email"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_designation"
+            android:text="Designation"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+<!--        <TextView-->
+<!--            android:layout_marginTop="@dimen/_2sdp"-->
+<!--            android:id="@+id/tv_email"-->
+<!--            android:text="dldldl"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <TextView-->
+<!--            android:layout_marginTop="@dimen/_2sdp"-->
+<!--            android:id="@+id/tv_mobile"-->
+<!--            android:text="dldldl"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:singleLine="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <TextView-->
+<!--            android:layout_marginTop="@dimen/_2sdp"-->
+<!--            android:id="@+id/tv_degigantion"-->
+<!--            android:text="dldldl"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:singleLine="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <TextView-->
+<!--            android:layout_marginTop="@dimen/_2sdp"-->
+<!--            android:id="@+id/tv_role"-->
+<!--            android:text="dldldl"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:singleLine="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+    </LinearLayout>
+
+</LinearLayout>

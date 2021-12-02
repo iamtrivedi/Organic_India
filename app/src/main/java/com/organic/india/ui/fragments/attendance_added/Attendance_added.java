@@ -391,6 +391,7 @@ public class Attendance_added extends Fragment implements View.OnClickListener, 
                                         break;
 
                                 }
+                                Toast.makeText(getContext(), ""+res_object.getString("message"), Toast.LENGTH_SHORT).show();
 
                             } catch (IOException | JSONException e) {
                                 e.printStackTrace();

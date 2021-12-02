@@ -57,6 +57,8 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
     @BindView(R.id.tv_title)TextView tv_title;
     @BindView(R.id.a_in_time_req)TextView a_in_time_req;
     @BindView(R.id.a_out_time_req)TextView a_out_time_req;
+    @BindView(R.id.tv_on_duty)TextView tv_on_duty;
+    @BindView(R.id.tv_work_from_home)TextView tv_work_from_home;
 
     Action action;
     public Request_add_atendance(String attendance_date,AttendanceReport report,Action action){
@@ -71,17 +73,24 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
         unbinder = ButterKnife.bind(this, view);
         dialog.setContentView(view);
 
+        Log.e("times","start "+report.getActualInTime()+" end "+report.getActualOutTime());
+
         tv_title.setText("Attendance Request From "+Organic_india.getInstance().getMe().getName()+" Date "+attendance_date);
 
         functions_common=new Functions_common(getContext());
 
         in_time_ip=functions_common.getLocalIpAddress();
 
-        in_time_request = report.getActualInTime()!=null?report.getActualInTime():in_time_request;
-        out_time_request = report.getActualOutTime()!=null?report.getActualOutTime():out_time_request;
 
-        a_in_time_req.setText(report.getActualInTime()!=null?"Actual In Time : "+report.getActualInTime():"Actual In Time :");
-        a_out_time_req.setText(report.getActualOutTime()!=null?"Actual Out Time : "+report.getActualOutTime():"Actual Out Time :");
+        in_time_request = report.getActualInTime().isEmpty()?"10:00:00 AM":report.getActualInTime();
+        out_time_request = report.getActualOutTime().isEmpty()?"7:00:00 PM":report.getActualOutTime();
+
+        tv_start_time.setText(in_time_request);
+        tv_end_time.setText(out_time_request);
+
+        a_in_time_req.setText(report.getActualInTime().isEmpty()?"Actual In Time : not found":"Actual In Time : "+report.getActualInTime());
+        a_out_time_req.setText(report.getActualOutTime().isEmpty()?"Actual Out Time : not found":"Actual Out Time : "+report.getActualOutTime());
+
 
         SimpleDateFormat format = new SimpleDateFormat("h:mm:ss aa");
         try {
@@ -93,12 +102,12 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
             end_time_cal.setTime(time_end);
 
         } catch (ParseException e) {
+            Log.e("any_exe",""+e.getMessage());
             e.printStackTrace();
+            tv_start_time.setText("-");
+            tv_end_time.setText("-");
         }
 
-
-        tv_start_time.setText(in_time_request);
-        tv_end_time.setText(out_time_request);
 
 
         tv_end_time.setOnClickListener(this::onClick);
@@ -108,6 +117,8 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
         tv_with_client.setOnClickListener(this::onClick);
         tv_submit.setOnClickListener(this::onClick);
         tv_cancel.setOnClickListener(this::onClick);
+        tv_work_from_home.setOnClickListener(this::onClick);
+        tv_on_duty.setOnClickListener(this::onClick);
 
     }
 
@@ -138,15 +149,11 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
                                }else{
                                  functions_common.toast("selected invalid time");
                                }
-
-                               Log.e("selected_time",""+end_time_cal.getTime());
+                               Log.e("selected_time","end "+end_time_cal.getTime());
 
                            }
                        }, end_time_cal.get(Calendar.HOUR_OF_DAY), end_time_cal.get(Calendar.MINUTE), false);
                picker_end.show();
-               picker_end.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
-               picker_end.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
-
                break;
 
            case R.id.tv_start_time:
@@ -166,21 +173,19 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
 
                                    SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
                                    in_time_request = sdf.format(start_time_cal.getTime());
-                                   tv_start_time.setText(out_time_request);
+                                   tv_start_time.setText(in_time_request);
 
                                }else{
                                    functions_common.toast("selected invalid time");
                                }
-                               Log.e("selected_time",""+start_time_cal.getTime());
+                               Log.e("selected_time","start "+start_time_cal.getTime());
 
                            }
                        }, start_time_cal.get(Calendar.HOUR_OF_DAY), start_time_cal.get(Calendar.MINUTE), false);
                picker_star_time.show();
-               picker_star_time.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.purple_200));
-               picker_star_time.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.purple_200));
-
-
                break;
+
+
 
            case R.id.ll_option:
                ll_option_list.setVisibility(ll_option_list.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
@@ -195,6 +200,18 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
            case R.id.tv_with_client:
                reason="2";
                tv_selected_option.setText(tv_with_client.getText().toString());
+               ll_option_list.setVisibility(View.GONE);
+               break;
+
+           case R.id.tv_on_duty:
+               reason="3";
+               tv_selected_option.setText(tv_on_duty.getText().toString());
+               ll_option_list.setVisibility(View.GONE);
+               break;
+
+           case R.id.tv_work_from_home:
+               reason="4";
+               tv_selected_option.setText(tv_work_from_home.getText().toString());
                ll_option_list.setVisibility(View.GONE);
                break;
 

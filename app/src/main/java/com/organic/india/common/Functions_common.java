@@ -12,11 +12,13 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.organic.india.R;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -111,5 +113,22 @@ public class Functions_common {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public static List<Integer> slides(){
+        List<Integer> slides=new ArrayList<>();
+        slides.add(R.drawable.slide1);
+        slides.add(R.drawable.slide2);
+        slides.add(R.drawable.slide3);
+        slides.add(R.drawable.slide4);
+        slides.add(R.drawable.slide5);
+        slides.add(R.drawable.slide6);
+        slides.add(R.drawable.slide7);
+        slides.add(R.drawable.slide8);
+        slides.add(R.drawable.slide9);
+        slides.add(R.drawable.slide10);
+        slides.add(R.drawable.slide11);
+        slides.add(R.drawable.slide12);
+        return slides;
     }
 }

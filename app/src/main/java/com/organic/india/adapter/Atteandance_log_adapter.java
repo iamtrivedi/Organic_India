@@ -36,44 +36,54 @@ public class Atteandance_log_adapter extends RecyclerView.Adapter<Atteandance_lo
     @Override
     public void onBindViewHolder(@NonNull Atteandance_log_adapter.ViewHolder holder, int position) {
 
+        holder.tv_in_log_type.setText(logs.get(position).getAttendanceType());
+        holder.tv_out_log_type.setText(logs.get(position).getAttendanceType());
+
+
         holder.tv_in_time.setText(logs.get(position).getInTime()!=null?logs.get(position).getInTime():"-");
         holder.tv_outtime.setText(logs.get(position).getOutTime()!=null?logs.get(position).getOutTime():"-");
 
         holder.tv_in_ip.setText("-"+logs.get(position).getInTimeIp()!=null?logs.get(position).getInTimeIp():"-");
         holder.tv_out_ip.setText("-"+logs.get(position).getOutTimeIp()!=null?logs.get(position).getOutTimeIp():"-");
 
-
         holder.ll_in_time.setVisibility(logs.get(position).getInTime()!=null?View.VISIBLE:View.GONE);
         holder.ll_out_time.setVisibility(logs.get(position).getOutTime()!=null?View.VISIBLE:View.GONE);
         holder.ll_no_log_time.setVisibility(logs.get(position).getInTime()==null && logs.get(position).getOutTime()==null?View.VISIBLE:View.GONE);
 
-        android.util.Log.e("timing","int_time "+logs.get(position).getInTime());
-        android.util.Log.e("timing","out_time "+logs.get(position).getOutTime());
+        switch (logs.get(position).getAttendanceType()){
 
-//        if (!logs.get(position).getInTime().isEmpty() && logs.get(position).getOutTime()==null){
-//
-//            holder.ll_in_time.setVisibility(View.VISIBLE);
-//            holder.ll_out_time.setVisibility(View.GONE);
-//            holder.ll_no_log_time.setVisibility(View.GONE);
-//
-//        }else if(logs.get(position).getInTime()==null && !logs.get(position).getOutTime().isEmpty()){
-//
-//            holder.ll_in_time.setVisibility(View.GONE);
-//            holder.ll_out_time.setVisibility(View.VISIBLE);
-//            holder.ll_no_log_time.setVisibility(View.GONE);
-//
-//        }else if (logs.get(position).getInTime()==null && logs.get(position).getOutTime()==null){
-//
-//            holder.ll_in_time.setVisibility(View.GONE);
-//            holder.ll_out_time.setVisibility(View.GONE);
-//            holder.ll_no_log_time.setVisibility(View.VISIBLE);
-//
-//        }else{
-//
-//            holder.ll_in_time.setVisibility(View.GONE);
-//            holder.ll_out_time.setVisibility(View.GONE);
-//            holder.ll_no_log_time.setVisibility(View.VISIBLE);
-//        }
+
+            case "Web":
+                //in time
+                holder.tv_view_in_location.setVisibility(View.GONE);
+                holder.ll_in_time_ip.setVisibility(View.VISIBLE);
+
+                //out time
+                holder.tv_view_out_location.setVisibility(View.GONE);
+                holder.ll_out_time_ip.setVisibility(View.VISIBLE);
+                break;
+
+            case "Biometric":
+                //in time
+                holder.ll_in_time_ip.setVisibility(View.GONE);
+                holder.tv_view_in_location.setVisibility(View.GONE);
+
+                //out time
+                holder.ll_out_time_ip.setVisibility(View.GONE);
+                holder.tv_view_out_location.setVisibility(View.GONE);
+                break;
+
+            case "App":
+                //in time
+                holder.tv_view_in_location.setVisibility(View.VISIBLE);
+                holder.ll_in_time_ip.setVisibility(View.GONE);
+
+                //out time
+                holder.tv_view_out_location.setVisibility(View.VISIBLE);
+                holder.ll_out_time_ip.setVisibility(View.GONE);
+                break;
+
+        }
 
         holder.tv_view_in_location.setOnClickListener(v->{
 
@@ -129,8 +139,10 @@ public class Atteandance_log_adapter extends RecyclerView.Adapter<Atteandance_lo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout ll_in_time,ll_out_time,ll_no_log_time;
-        TextView tv_view_out_location,tv_view_in_location,tv_in_time,tv_outtime,tv_in_ip,tv_out_ip;
+        RelativeLayout ll_no_log_time;
+        TextView tv_view_out_location,tv_view_in_location,tv_in_time,tv_outtime,tv_in_ip,tv_out_ip,tv_out_log_type,tv_in_log_type;
+        LinearLayout ll_in_time_ip,ll_out_time_ip;
+        LinearLayout ll_out_time,ll_in_time;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -144,6 +156,10 @@ public class Atteandance_log_adapter extends RecyclerView.Adapter<Atteandance_lo
             ll_no_log_time=itemView.findViewById(R.id.ll_no_log_time);
             tv_in_ip=itemView.findViewById(R.id.tv_in_ip);
             tv_out_ip=itemView.findViewById(R.id.tv_out_ip);
+            ll_in_time_ip=itemView.findViewById(R.id.ll_in_time_ip);
+            ll_out_time_ip=itemView.findViewById(R.id.ll_out_time_ip);
+            tv_in_log_type=itemView.findViewById(R.id.tv_in_log_type);
+            tv_out_log_type=itemView.findViewById(R.id.tv_out_log_type);
         }
     }
 }

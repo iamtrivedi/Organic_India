@@ -27,6 +27,11 @@ public class Constant {
         public static final int Attendance_request=8;
         public static final int Team_leave_request=9;
         public static final int Team_leave_request_report=10;
+
+
+        public static final int BM_home=11;
+        public static final int BM_leave=12;
+        public static final int BM_attendace=13;
     }
 
     public static List<User_profile_data> profile_dataList (){

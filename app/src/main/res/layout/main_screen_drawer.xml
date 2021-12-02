@@ -118,11 +118,33 @@
                     />
 
                 <TextView
+                    android:id="@+id/nav_policy"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Policies"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
                     android:id="@+id/nav_gallery"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Gallery"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/nav_whowho"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Who's Who"
                     android:padding="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="@color/white"

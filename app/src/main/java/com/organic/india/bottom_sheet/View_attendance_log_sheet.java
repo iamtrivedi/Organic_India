@@ -39,8 +39,11 @@ public class View_attendance_log_sheet extends BottomSheetDialogFragment {
     @BindView(R.id.tv_list_status)TextView tv_list_status;
 
     String date;
-    public View_attendance_log_sheet(String date) {
+    String employee_id,employee_code;
+    public View_attendance_log_sheet(String date, String employee_id, String employee_code) {
         this.date = date;
+        this.employee_id = employee_id;
+        this.employee_code = employee_code;
     }
 
     @Override
@@ -56,8 +59,8 @@ public class View_attendance_log_sheet extends BottomSheetDialogFragment {
         tv_title.setText("Attendance Logs On "+date);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("employee_id", Organic_india.getInstance().getMe().getEmployeeId());
-        jsonObject.addProperty("employee_code", Organic_india.getInstance().getMe().getEmployeeCode());
+        jsonObject.addProperty("employee_id",employee_id);
+        jsonObject.addProperty("employee_code", employee_code);
         jsonObject.addProperty("attendance_date", date);
 
         Api_instence.getRetrofitInstance().attendance_logs(jsonObject)

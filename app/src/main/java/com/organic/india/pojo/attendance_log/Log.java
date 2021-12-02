@@ -26,6 +26,9 @@ public class Log {
     @SerializedName("in_time_long")
     @Expose
     private String inTimeLong;
+    @SerializedName("attendance_type")
+    @Expose
+    private String attendanceType;
     @SerializedName("out_time")
     @Expose
     private String outTime;
@@ -93,6 +96,14 @@ public class Log {
 
     public void setInTimeLong(String inTimeLong) {
         this.inTimeLong = inTimeLong;
+    }
+
+    public String getAttendanceType() {
+        return attendanceType;
+    }
+
+    public void setAttendanceType(String attendanceType) {
+        this.attendanceType = attendanceType;
     }
 
     public String getOutTime() {

@@ -52,8 +52,8 @@ public class Employee_attendance_report extends Fragment {
 
         adapter=new Team_list_adapter(employees, new Team_list_adapter.Team_player(){
             @Override
-            public void selected_player(Employee employee){
-                team_player.selected_player(employee);
+            public void selected_player(Employee employee,int pos){
+                team_player.selected_player(employee,employees,pos);
             }
         });
         rcy_list.setAdapter(adapter);
@@ -112,6 +112,6 @@ public class Employee_attendance_report extends Fragment {
     }
 
     public interface Team_player{
-        void selected_player(Employee employee);
+        void selected_player(Employee employee,List<Employee> employees,int pos);
     }
 }

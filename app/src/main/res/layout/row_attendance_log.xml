@@ -19,12 +19,6 @@
 
         <include layout="@layout/row_attance_no_log"/>
 
-        <TextView
-            android:background="#7FBF82"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_below="@+id/ll_detail_holder"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"/>
 
     </LinearLayout>
 

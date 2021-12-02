@@ -33,7 +33,7 @@ public class Team_list_adapter extends RecyclerView.Adapter<Team_list_adapter.Vi
        holder.tv_index.setText("#SL "+employees.get(position).getLevel());
 
        holder.itemView.setOnClickListener(v->{
-           team_player.selected_player(employees.get(position));
+           team_player.selected_player(employees.get(position),position);
        });
     }
 
@@ -54,6 +54,6 @@ public class Team_list_adapter extends RecyclerView.Adapter<Team_list_adapter.Vi
     }
 
     public interface Team_player{
-        void selected_player(Employee employee);
+        void selected_player(Employee employee,int pos);
     }
 }

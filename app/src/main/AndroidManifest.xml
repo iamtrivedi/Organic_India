@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.organic.india">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,6 +22,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OrganicIndia"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.activites.view_pdf.Viewpdf_page"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activites.policies.Policies_page"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activites.whose_department_page.Whose_department_page"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activites.whoswho.Whosewho_page"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.team_leave_request_report.Team_leave_request_leave_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.attendance_request.Attendance_request_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.user_profile.User_profile_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.change_password.Change_password_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.mark_attendance.Mark_attendance_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.my_leave_application.My_leave_application_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.new_leave_application.New_leave_application_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.attendance_report.Attendance_report_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.attendance_added.Attendance_added_activity"
+            android:exported="false" />
         <activity
             android:name=".ui.activites.gallery_image.Gallery_image_page"
             android:exported="false" />
@@ -57,6 +97,7 @@
         <activity android:name=".ui.activites.splash.Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

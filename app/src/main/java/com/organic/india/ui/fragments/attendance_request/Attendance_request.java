@@ -1,8 +1,18 @@
 package com.organic.india.ui.fragments.attendance_request;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +21,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.github.dewinjm.monthyearpicker.MonthYearPickerDialog;
 import com.github.dewinjm.monthyearpicker.MonthYearPickerDialogFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
 import com.organic.india.R;
 import com.organic.india.adapter.Attendance_request_adapter;
@@ -23,10 +36,8 @@ import com.organic.india.data.Api_instence;
 import com.organic.india.dialog.Accept_or_Reject_attendance;
 import com.organic.india.pojo.attendance_request.Request;
 import com.organic.india.singletone.Organic_india;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -41,19 +52,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Attendance_request extends Fragment implements View.OnClickListener {
+public class Attendance_request extends Fragment implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener{
+
+    //location
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLocation;
+    private LocationManager locationManager;
+    private LocationRequest mLocationRequest;
 
     Attendance_request_adapter adapter;
     private List<Request> requestList = new ArrayList<>();
 
+    List<String> permissions = new ArrayList<>();
+
+
     Functions_common functions_common;
     Calendar current_date = Calendar.getInstance();
+
+    String out_time_ip="";
+    String out_time_lat="";
+    String out_time_long="";
 
     @BindView(R.id.currentDateLabel)TextView currentDateLabel;
     @BindView(R.id.previousButton)ImageView previousButton;
     @BindView(R.id.forwardButton)ImageView forwardButton;
     @BindView(R.id.rcy_attendance_report)RecyclerView rcy_attendance_report;
     @BindView(R.id.pb_progress)ProgressBar pb_progress;
+    @BindView(R.id.tv_no_found)TextView tv_no_found;
 
     View view;
 
@@ -68,17 +93,29 @@ public class Attendance_request extends Fragment implements View.OnClickListener
 
         functions_common=new Functions_common(getContext());
 
+        out_time_ip=functions_common.getLocalIpAddress();
+
         adapter = new Attendance_request_adapter(requestList, getContext(), new Attendance_request_adapter.Actions() {
             @Override
             public void react_to_request(Request request,int position) {
 
-              new Accept_or_Reject_attendance(getContext(),request, new Accept_or_Reject_attendance.React() {
-                  @Override
-                  public void reaction(int value) {
 
-                      approve_or_reject_attendance(request,value,position);
-                  }
-              }).show();
+                if (out_time_lat.isEmpty() || out_time_long.isEmpty()){
+                    statusCheck();
+                }else{
+                    new Accept_or_Reject_attendance(getContext(),request, new Accept_or_Reject_attendance.React() {
+                        @Override
+                        public void reaction(int value) {
+
+                            if (out_time_lat.isEmpty() || out_time_long.isEmpty()){
+                                statusCheck();
+                            }else{
+                                approve_or_reject_attendance(request,value,position);
+                            }
+                        }
+                    }).show();
+                }
+
             }
         });
 
@@ -89,6 +126,23 @@ public class Attendance_request extends Fragment implements View.OnClickListener
         previousButton.setOnClickListener(this::onClick);
         forwardButton.setOnClickListener(this::onClick);
         currentDateLabel.setOnClickListener(this::onClick);
+
+        functions_common=new Functions_common(getActivity(), new Functions_common.Permission_handle() {
+            @Override
+            public void granted(){
+
+                statusCheck();
+            }
+
+            @Override
+            public void denied(){
+                Toast.makeText(getContext(), "please enable GPS", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        functions_common.handle_permission(getActivity(),permissions);
 
         return view;
     }
@@ -104,6 +158,7 @@ public class Attendance_request extends Fragment implements View.OnClickListener
 
 
         pb_progress.setVisibility(View.VISIBLE);
+        tv_no_found.setVisibility(View.GONE);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("employee_id", Organic_india.getInstance().getMe().getEmployeeId());
@@ -124,10 +179,12 @@ public class Attendance_request extends Fragment implements View.OnClickListener
                                    requestList.removeAll(requestList);
                                    requestList.addAll(response.body().getData());
                                    adapter.notifyDataSetChanged();
+                                   tv_no_found.setVisibility(requestList.size()>0?View.GONE:View.VISIBLE);
                                    break;
 
                                default:
                                    functions_common.toast(response.body().getMessage());
+                                   tv_no_found.setVisibility(requestList.size()>0?View.GONE:View.VISIBLE);
                                    pb_progress.setVisibility(View.GONE);
                                    requestList.removeAll(requestList);
                                    adapter.notifyDataSetChanged();
@@ -136,6 +193,7 @@ public class Attendance_request extends Fragment implements View.OnClickListener
                            }
                        }else{
                            pb_progress.setVisibility(View.GONE);
+                           tv_no_found.setVisibility(requestList.size()>0?View.GONE:View.VISIBLE);
                        }
                     }
                     @Override
@@ -160,13 +218,23 @@ public class Attendance_request extends Fragment implements View.OnClickListener
 
         functions_common.show_loader(value==1?"Attendance Accepting":"Attendance Rejecting");
 
+
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("employee_id",Organic_india.getInstance().getMe().getEmployeeId());
         jsonObject.addProperty("employee_code",Organic_india.getInstance().getMe().getEmployeeCode());
-        jsonObject.addProperty("approve_reject",value);
         jsonObject.addProperty("attendance_id",request.getId());
+        jsonObject.addProperty("in_time_request",request.getInTimeRequest());
+        jsonObject.addProperty("out_time_request",request.getOutTimeRequest());
+        jsonObject.addProperty("attendance_date",request.getAttendanceDate());
+        jsonObject.addProperty("out_time_ip",""+out_time_ip);
+        jsonObject.addProperty("out_time_lat",""+out_time_lat);
+        jsonObject.addProperty("out_time_long",""+out_time_long);
+        jsonObject.addProperty("reason",request.getReason());
+        jsonObject.addProperty("request_status",value);
 
-        Api_instence.getRetrofitInstance().approve_reject_attendance_request(jsonObject)
+        Log.e("dddd",""+jsonObject.toString());
+
+        Api_instence.getRetrofitInstance().attandance_response(jsonObject)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response){
@@ -189,6 +257,7 @@ public class Attendance_request extends Fragment implements View.OnClickListener
                                        break;
 
                                }
+                               functions_common.toast(obj.getString("message"));
                                functions_common.dismiss_loader();
 
                            } catch (IOException | JSONException e) {
@@ -273,5 +342,152 @@ public class Attendance_request extends Fragment implements View.OnClickListener
         });
 
         dialogFragment.show(getChildFragmentManager(), null);
+    }
+
+
+    @Override
+    public void onConnected(Bundle bundle){
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        } startLocationUpdates();
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(mLocation == null){
+
+            startLocationUpdates();
+
+        }
+        if (mLocation != null) {
+
+            double latitude = mLocation.getLatitude();
+            double longitude = mLocation.getLongitude();
+            out_time_lat=""+latitude;
+            out_time_long=""+longitude;
+
+            Toast.makeText(getActivity(), "Location Detected", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(getActivity(), "Reload Again ! Location not Detected", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+    protected void startLocationUpdates(){
+
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1000)
+                .setFastestInterval(500);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest, this);
+        Log.d("reque", "--->>>>");
+    }
+
+
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i("mark_attendance", "Connection Suspended");
+        mGoogleApiClient.connect();
+    }
+
+
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.i("mark_attendance", "Connection failed. Error: " + connectionResult.getErrorCode());
+    }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        final LocationManager manager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if(manager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            if(mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.disconnect();
+            }
+        }
+    }
+
+
+
+    @Override
+    public void onLocationChanged(Location location){
+
+    }
+
+
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+        }
+    }
+
+
+
+    private void buildAlertMessageNoGps(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Please enable GPS to Checkout")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+
+                        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+
+            functions_common.show_loader("getting current location...");
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run(){
+
+                    connect_gps();
+
+                }
+            },1000);
+        }
+    }
+
+
+
+    void connect_gps(){
+        functions_common.dismiss_loader();
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 }

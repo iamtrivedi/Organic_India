@@ -3,7 +3,9 @@ package com.organic.india.pojo.attendance;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attendance {
+import java.io.Serializable;
+
+public class Attendance implements Serializable {
 
     public Attendance() {
     }

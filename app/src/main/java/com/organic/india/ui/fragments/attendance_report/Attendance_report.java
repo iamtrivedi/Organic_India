@@ -17,7 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.github.dewinjm.monthyearpicker.MonthYearPickerDialog;
 import com.github.dewinjm.monthyearpicker.MonthYearPickerDialogFragment;
@@ -33,6 +36,7 @@ import com.organic.attendance_calender.exceptions.OutOfDateRangeException;
 import com.organic.attendance_calender.listeners.OnCalendarPageChangeListener;
 import com.organic.attendance_calender.listeners.OnDayClickListener;
 import com.organic.india.R;
+import com.organic.india.adapter.Select_employees_adapter;
 import com.organic.india.bottom_sheet.Request_add_atendance;
 import com.organic.india.bottom_sheet.View_attendance_log_sheet;
 import com.organic.india.common.Constant;
@@ -40,6 +44,7 @@ import com.organic.india.common.Functions_common;
 import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.attendance_report.AttendanceReport;
 import com.organic.india.pojo.attendance_report.Attendance_report_res;
+import com.organic.india.pojo.team_listing.Employee;
 import com.organic.india.pojo.update_attendance.Update_attendance_res;
 import com.organic.india.singletone.Organic_india;
 import java.util.ArrayList;
@@ -75,11 +80,19 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
     @BindView(R.id.attendance_calendar)CalendarView attendance_calendar;
     @BindView(R.id.pb_load_calendar)ProgressBar pb_load_calendar;
+    @BindView(R.id.ll_spinner_holder)RelativeLayout ll_spinner_holder;
+    @BindView(R.id.employee_spinner)Spinner employee_spinner;
 
     View view;
 
     String employee_id,employee_code;
     boolean is_manager=false;
+    boolean is_first_time=true;
+
+    Select_employees_adapter adapter;
+    int pos=-1;
+    List<Employee> employees=new ArrayList<>();
+
 
     public Attendance_report(String employee_id, String employee_code, boolean is_manager) {
         this.employee_id = employee_id;
@@ -87,15 +100,22 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         this.is_manager = is_manager;
     }
 
+
+    public Attendance_report(String employee_id, String employee_code, boolean is_manager,List<Employee> employees,int pos) {
+        this.employee_id = employee_id;
+        this.employee_code = employee_code;
+        this.is_manager = is_manager;
+        this.employees = employees;
+        this.pos = pos;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 
         view= inflater.inflate(R.layout.fragment_attendance_report, container, false);
         ButterKnife.bind(this,view);
         functions_common=new Functions_common(getContext());
-
-
-        get_attendance_report(attendance_calendar.getCurrentPageDate().getTime());
 
 
         attendance_calendar.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener(){
@@ -136,12 +156,6 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
                 if (eventDay.getCalendar().getTimeInMillis()<=current_date.getTimeInMillis() && events.size()>0){
                     select_operation_on_date(Constant.yyyy_mm_dd(eventDay.getCalendar()),(AttendanceReport) eventDay.getData());
                 }
-
-//                if (!is_manager){
-//                    if (eventDay.getCalendar().getTimeInMillis()<=current_date.getTimeInMillis() && events.size()>0){
-//                        select_operation_on_date(Constant.yyyy_mm_dd(eventDay.getCalendar()));
-//                    }
-//                }
             }
         });
 
@@ -165,6 +179,33 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         functions_common.handle_permission(getActivity(),permissions);
+
+        if (is_manager){
+            ll_spinner_holder.setVisibility(View.VISIBLE);
+            adapter=new Select_employees_adapter(getContext(),employees);
+            employee_spinner.setAdapter(adapter);
+            employee_spinner.setSelection(pos);
+        }else{
+            get_attendance_report(attendance_calendar.getCurrentPageDate().getTime());
+        }
+
+        employee_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                is_first_time=false;
+                employee_id=""+employees.get(i).getEmployeeId();
+                employee_code=""+employees.get(i).getEmployeeCode();
+
+                get_attendance_report(attendance_calendar.getCurrentPageDate().getTime());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView){
+
+            }
+        });
 
         return view;
     }
@@ -212,6 +253,7 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
                     @Override
                     public void onFailure(Call<Attendance_report_res> call, Throwable t) {
                        functions_common.toast("couldn't connect with server");
+                       Log.e("report_cause",""+t.getMessage());
                         pb_load_calendar.setVisibility(View.GONE);
                     }
                 });
@@ -229,37 +271,38 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
             try {
 
+                events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),day_icon(report),report));
 
-                String data_report = report.getPresent()!=null?report.getPresent():"";
-                if (!data_report.isEmpty() && report.getLog().equals("Yes")){
-                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_present,report));
-                    continue;
-                }
-
-                if (!report.getWeeklyOff().isEmpty()){
-                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_weeknd,report));
-                    continue;
-                }
-
-                if (!report.getStatus().isEmpty() && report.getStatus().equals("reject")){
-                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_reject,report));
-                    continue;
-                }
-
-                if (!report.getHoliday().isEmpty() && report.getHoliday().equals("H")){
-                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_holiday,report));
-                    continue;
-                }
-
-
-                String data_weekly_off = report.getWeeklyOff()!=null?report.getWeeklyOff():"";
-                String data_holiday = report.getHoliday()!=null?report.getHoliday():"";
-                String data_present = report.getPresent()!=null?report.getPresent():"";
-                String data_send = report.getStatus()!=null?report.getStatus():"";
-                if (data_weekly_off.isEmpty() && data_holiday.isEmpty() && data_present.isEmpty() && data_send.equals("send")){
-                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_no_presence,report));
-                    continue;
-                }
+//                String data_report = report.getPresent()!=null?report.getPresent():"";
+//                if (!data_report.isEmpty() && report.getLog().equals("Yes")){
+//                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_present,report));
+//                    continue;
+//                }
+//
+//                if (!report.getWeeklyOff().isEmpty()){
+//                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_weeknd,report));
+//                    continue;
+//                }
+//
+//                if (!report.getStatus().isEmpty() && report.getStatus().equals("reject")){
+//                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_reject,report));
+//                    continue;
+//                }
+//
+//                if (!report.getHoliday().isEmpty() && report.getHoliday().equals("H")){
+//                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_holiday,report));
+//                    continue;
+//                }
+//
+//
+//                String data_weekly_off = report.getWeeklyOff()!=null?report.getWeeklyOff():"";
+//                String data_holiday = report.getHoliday()!=null?report.getHoliday():"";
+//                String data_present = report.getPresent()!=null?report.getPresent():"";
+//                String data_send = report.getStatus()!=null?report.getStatus():"";
+//                if (data_weekly_off.isEmpty() && data_holiday.isEmpty() && data_present.isEmpty() && data_send.equals("send")){
+//                    events.add(new EventDay(Constant.yyyy_mm_dd_str_to_date(report.getDate()),R.drawable.cal_no_presence,report));
+//                    continue;
+//                }
 
             }catch (NullPointerException e){
                 continue;
@@ -290,10 +333,10 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
                             default:
                                 functions_common.toast(response.body().getMessage());
-                                functions_common.dismiss_loader();
                                 break;
 
                         }
+                        functions_common.dismiss_loader();
                     }
                     @Override
                     public void onFailure(Call<Update_attendance_res> call, Throwable t) {
@@ -562,18 +605,35 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
     void apply_date_via(String date,boolean view_log,AttendanceReport report){
 
         if (view_log){
-            new View_attendance_log_sheet(date).show(getFragmentManager(),"View_attendance_log_sheet");
+            new View_attendance_log_sheet(date,employee_id,employee_code).show(getFragmentManager(),"View_attendance_log_sheet");
         }else{
             request_add_attendance(date,report);
-//            for (AttendanceReport report : attendanceReport){
-//
-//                if (report.getDate().equals(date) && report.getWeeklyOff().isEmpty() && report.getHoliday().isEmpty() && report.getPresent().isEmpty() && report.getStatus().equals("send")){
-//                    request_add_attendance(date);
-//                    break;
-//                }else{
-//                    Log.e("get_date",""+report.getDate()+" "+date);
-//                }
-//            }
+        }
+    }
+
+
+    public int day_icon(AttendanceReport report){
+
+        Log.d("status_day",""+report.getPresent());
+
+        if (report.getHoliday().equalsIgnoreCase("H")){
+            return R.drawable.cal_holiday;
+        }else if(report.getWeeklyOff().equalsIgnoreCase("W")) {
+            return R.drawable.cal_weeknd;
+        }else if (!report.getActualInTime().isEmpty() && report.getActualOutTime().isEmpty()){
+            return R.drawable.cal_half_day_leave;
+        }else if(report.getLeaveTitle().contains("Half Day") && report.getLeave().equalsIgnoreCase("L")){
+            return R.drawable.cal_half_present;
+        }else if(!report.getLeaveTitle().contains("Half Day") && report.getLeave().equalsIgnoreCase("L")){
+            return R.drawable.ca_leave;
+        }else if (report.getPresent().equalsIgnoreCase("P")){
+            return R.drawable.cal_present;
+        }else if (report.getPresent().equalsIgnoreCase("P/2")){
+            return R.drawable.cal_half_present;
+        }else if(report.getPresent().equalsIgnoreCase("A")){
+            return R.drawable.cal_no_presence;
+        }else{
+            return R.drawable.cal_no_status;
         }
     }
 }

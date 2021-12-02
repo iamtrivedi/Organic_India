@@ -6,37 +6,58 @@
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/gradient_row.xml" value="0.28703703703703703" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/ic_arrow_back.xml" value="0.28703703703703703" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/ic_prescription.xml" value="0.30092592592592593" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/ic_work_off.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/shape_rect.xml" value="0.22314814814814815" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/stock_grey.xml" value="0.29074074074074074" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/drawable/stock_radius_grey.xml" value="0.29074074074074074" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_asset_on_xml.xml" value="0.3375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_attendance_added.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_attendance_location.xml" value="0.2324074074074074" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_attendance_report.xml" value="0.3234375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_attendance_request.xml" value="0.25" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_change_password.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_create_leave_page.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_gallery.xml" value="0.25" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_gallery_image_page.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_login.xml" value="0.2361111111111111" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_main.xml" value="0.24444444444444444" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_mark_attendance.xml" value="0.3234375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_my_leave_application.xml" value="0.3375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_new_leave_application.xml" value="0.25" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_policies_page.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_team_leave_request_leave.xml" value="0.3234375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_user_profile.xml" value="0.3375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_viewpdf_page.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_viewphoto_gallery.xml" value="0.2324074074074074" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_whose_department_page.xml" value="0.3234375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/activity_whosewho_page.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/bottomsheet_request_add_atendance.xml" value="0.24444444444444444" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/bottomsheet_view_attendance_log.xml" value="0.24444444444444444" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/dialog_gallery_view.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/dialog_react_on_attendance.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/dialog_react_on_leave.xml" value="0.67" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/dialog_update_app.xml" value="0.25" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_attendance_added.xml" value="0.2324074074074074" />
-        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_attendance_report.xml" value="0.24444444444444444" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_attendance_report.xml" value="0.25" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_attendance_request.xml" value="0.2537037037037037" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_change_password.xml" value="0.14907407407407408" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_dashboard.xml" value="0.19" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_employee_attendance_report.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_image_slide_item.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_mark_attendance.xml" value="0.14907407407407408" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_my_leave_applications.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_new_leave_application.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_team_leave_request_page.xml" value="0.25" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/fragment_user_profile.xml" value="0.22" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/invalid_pdf.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/main_screen_drawer.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/managers_option_attendance.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/managers_option_leaves.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attance_no_log.xml" value="0.25" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attendance_in_time.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attendance_log.xml" value="0.25" />
-        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attendance_out_time.xml" value="0.25" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attendance_out_time.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_attendance_request.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_chart_card.xml" value="0.24074074074074073" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_common_spinner_card.xml" value="0.25" />
@@ -45,10 +66,16 @@
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_leave_chart.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_my_leave.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_photo_gallery.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_policy.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_press_coverage.xml" value="0.24074074074074073" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_profile_detail_card.xml" value="0.3375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_select_employee.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_team_player.xml" value="0.2537037037037037" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_whosewho.xml" value="0.22" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/row_whosewho_employee.xml" value="0.3375" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/slidingimages.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/test.xml" value="0.25" />
+        <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/tool_layout.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/layout/toolbar_common.xml" value="0.22" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/app/src/main/res/xml/file.xml" value="0.3375" />
         <entry key="..\:/Users/user/Workingprojects/Organic_india/Orgnic_india/attendance_calender/src/main/res/drawable/background_color_circle_selector.xml" value="0.29074074074074074" />

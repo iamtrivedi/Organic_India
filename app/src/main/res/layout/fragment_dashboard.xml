@@ -80,11 +80,6 @@
 
      </LinearLayout>
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@drawable/organization_chart"-->
-<!--            android:layout_height="@dimen/_200sdp"/>-->
 
         <RelativeLayout
             android:visibility="gone"
@@ -121,7 +116,7 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/background_color_circle_selector"
                 android:src="@drawable/ic_arrow_bottom"
-                android:tint="@color/black" />
+                app:tint="@color/black" />
 
 
         </RelativeLayout>
@@ -148,6 +143,7 @@
         <RelativeLayout
             android:padding="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"
             android:id="@+id/ll_show_photo_gallery"
             android:background="@drawable/gradient_row"
             android:layout_marginRight="@dimen/_10sdp"
@@ -202,6 +198,43 @@
                 android:layout_marginBottom="@dimen/_10sdp" />
 
         </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_oi_journey"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Organic India Journey"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:backgroundTint="@color/black"
+                android:paddingBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/app_grey"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="2sp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imageslide"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

@@ -13,29 +13,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.organic.india.R;
 import com.organic.india.common.Constant;
 import com.organic.india.common.SharedPreferenceUtils;
+import com.organic.india.dialog.dialog_attendance_tap;
+import com.organic.india.dialog.dialog_leave_tap;
 import com.organic.india.pojo.attendance.Attendance;
-import com.organic.india.pojo.team_listing.Employee;
 import com.organic.india.singletone.Organic_india;
 import com.organic.india.ui.activites.gallery.Gallery;
 import com.organic.india.ui.activites.login.Login;
-import com.organic.india.ui.fragments.attendance_added.Attendance_added;
-import com.organic.india.ui.fragments.attendance_report.Attendance_report;
-import com.organic.india.ui.fragments.attendance_request.Attendance_request;
-import com.organic.india.ui.fragments.change_password.Change_password;
+import com.organic.india.ui.activites.policies.Policies_page;
+import com.organic.india.ui.activites.whoswho.Whosewho_page;
+import com.organic.india.ui.activity.attendance_added.Attendance_added_activity;
+import com.organic.india.ui.activity.attendance_report.Attendance_report_activity;
+import com.organic.india.ui.activity.attendance_request.Attendance_request_activity;
+import com.organic.india.ui.activity.change_password.Change_password_activity;
+import com.organic.india.ui.activity.mark_attendance.Mark_attendance_activity;
+import com.organic.india.ui.activity.my_leave_application.My_leave_application_activity;
+import com.organic.india.ui.activity.new_leave_application.New_leave_application_activity;
+import com.organic.india.ui.activity.team_leave_request_report.Team_leave_request_leave_activity;
+import com.organic.india.ui.activity.user_profile.User_profile_activity;
 import com.organic.india.ui.fragments.dashboard.Dashboard;
-import com.organic.india.ui.fragments.employee_attendance_report.Employee_attendance_report;
-import com.organic.india.ui.fragments.mark_attendance.Mark_attendance;
-import com.organic.india.ui.fragments.my_leave_applications.My_leave_applications;
-import com.organic.india.ui.fragments.new_leave_application.New_leave_application;
-import com.organic.india.ui.fragments.team_leave_requests.Team_leave_request_page;
-import com.organic.india.ui.fragments.user_profile.User_profile;
-
-import java.util.Calendar;
-
+import java.io.Serializable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -56,9 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.nav_gallery)TextView nav_gallery;
     @BindView(R.id.nav_profile)TextView nav_profile;
     @BindView(R.id.tv_logout)TextView tv_logout;
+    @BindView(R.id.nav_whowho)TextView nav_whowho;
+    @BindView(R.id.nav_policy)TextView nav_policy;
 
     @BindView(R.id.nav_tv_team_leave)TextView nav_tv_team_leave;
     @BindView(R.id.nav_team_leave_report)TextView nav_team_leave_report;
+
+    @BindView(R.id.ll_home)LinearLayout ll_home;
+    @BindView(R.id.ll_leave)LinearLayout ll_leave;
+    @BindView(R.id.ll_attendance)LinearLayout ll_attendance;
 
 
 
@@ -87,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nav_tv_team_leave.setOnClickListener(this);
         nav_team_leave_report.setOnClickListener(this);
         nav_gallery.setOnClickListener(this);
+        nav_whowho.setOnClickListener(this);
+        nav_policy.setOnClickListener(this);
+
+        ll_home.setOnClickListener(this);
+        ll_leave.setOnClickListener(this);
+        ll_attendance.setOnClickListener(this);
 
     }
 
@@ -98,104 +109,101 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case Constant.Route.New_leave_application:
-                loadFragment(new New_leave_application(new New_leave_application.Leave_actions() {
-                    @Override
-                    public void on_leave_request_added(){
-                        onBackPressed();
-                    }
-                }));
+
+                startActivity(new Intent(MainActivity.this, New_leave_application_activity.class));
+
                 break;
 
              case Constant.Route.My_leave_applications:
-                loadFragment(new My_leave_applications());
+
+                 startActivity(new Intent(MainActivity.this, My_leave_application_activity.class));
+
+
                 break;
 
              case Constant.Route.Mark_attendance:
 
-                 if (SharedPreferenceUtils.prefExists(Constant.yyyy_mm_dd(Calendar.getInstance()))){
-
-                     load_frame(Constant.Route.Attendance_added,null);
-                 }
-                 else{
-
-                     loadFragment(new Mark_attendance(new Mark_attendance.Attendance_actions() {
-                         @Override
-                         public void already_added(Attendance attendance){
-                             load_frame(Constant.Route.Attendance_added,attendance);
-                         }
-
-                         @Override
-                         public void canceled_permission(){
-                             Toast.makeText(MainActivity.this, "please enable GPS", Toast.LENGTH_SHORT).show();
-                             onBackPressed();
-                         }
-
-                         @Override
-                         public void attendance_added(){
-                             onBackPressed();
-                         }
-                     }));
-                 }
+                 startActivity(new Intent(MainActivity.this, Mark_attendance_activity.class));
 
                  break;
 
 
             case Constant.Route.Attendance_report:
 
-                loadFragment(Organic_india.getInstance().getMe().getIrm().equals("manager")?new Employee_attendance_report(new Employee_attendance_report.Team_player() {
-                    @Override
-                    public void selected_player(Employee employee) {
+                startActivity(new Intent(MainActivity.this, Attendance_report_activity.class));
 
-                        //view attendance
-                        loadFragment(new Attendance_report(""+employee.getEmployeeId(),employee.getEmployeeCode(),true));
-                    }
-                }):new Attendance_report(""+Organic_india.getInstance().getMe().getEmployeeId(),Organic_india.getInstance().getMe().getEmployeeCode(),false));
                 break;
 
 
 
             case Constant.Route.Change_password:
-                loadFragment(new Change_password(new Change_password.Actions() {
-                    @Override
-                    public void on_update() {
 
-                    }
-                    @Override
-                    public void on_cancel() {
-                     onBackPressed();
-                    }
-                }));
+                startActivity(new Intent(MainActivity.this, Change_password_activity.class));
+
                 break;
 
             case Constant.Route.Attendance_added:
-                loadFragment(new Attendance_added((Attendance) object, new Attendance_added.Attendance_already_added_actions() {
-                    @Override
-                    public void checkedout(){
 
-                        onBackPressed();
-                    }
-                }));
+                startActivity(new Intent(MainActivity.this, Attendance_added_activity.class)
+                .putExtra("Attendance_added",(Serializable)(Attendance) object));
+
                 break;
 
             case Constant.Route.User_profile:
-                loadFragment(new User_profile());
+
+                startActivity(new Intent(MainActivity.this, User_profile_activity.class));
+
                 break;
 
             case Constant.Route.Attendance_request:
-                loadFragment(new Attendance_request());
+
+                startActivity(new Intent(MainActivity.this, Attendance_request_activity.class));
                 break;
 
             case Constant.Route.Team_leave_request:
 
                 Toast.makeText(MainActivity.this, "coming soon", Toast.LENGTH_SHORT).show();
 
-             //   loadFragment(new Team_leave_request_page());
+
                 break;
 
 
             case Constant.Route.Team_leave_request_report:
-                loadFragment(new Team_leave_request_page());
+
+                startActivity(new Intent(MainActivity.this, Team_leave_request_leave_activity.class));
+
                 break;
+
+
+
+            case Constant.Route.BM_home:
+                 loadFragment(new Dashboard());
+                break;
+
+
+
+            case Constant.Route.BM_leave:
+                new dialog_leave_tap(this, new dialog_leave_tap.Selected_option() {
+                    @Override
+                    public void option(int option) {
+                        load_frame(option,null);
+                    }
+                }).show_options();
+               break;
+
+
+
+            case Constant.Route.BM_attendace:
+
+                new dialog_attendance_tap(this, new dialog_attendance_tap.Selected_option() {
+                    @Override
+                    public void option(int option) {
+                        load_frame(option,null);
+                    }
+                }).show_options();
+
+                break;
+
         }
     }
 
@@ -229,6 +237,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
+            case R.id.nav_whowho:
+                drawer.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this, Whosewho_page.class));
+                break;
+
+            case R.id.nav_policy:
+                drawer.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this, Policies_page.class));
+                break;
 
             case R.id.iv_drawer:
                 drawer.openDrawer(GravityCompat.START);
@@ -284,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.nav_tv_team_leave:
                 drawer.closeDrawer(GravityCompat.START);
-                load_frame(Constant.Route.Team_leave_request,null);
+              //  load_frame(Constant.Route.Team_leave_request,null);
                 break;
 
 
@@ -297,6 +315,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.nav_team_leave_report:
                 drawer.closeDrawer(GravityCompat.START);
                 load_frame(Constant.Route.Team_leave_request_report,null);
+                break;
+
+
+            case R.id.ll_home:
+                load_frame(Constant.Route.BM_home,null);
+                break;
+
+
+            case R.id.ll_leave:
+                load_frame(Constant.Route.BM_leave,null);
+                break;
+
+
+            case R.id.ll_attendance:
+                load_frame(Constant.Route.BM_attendace,null);
                 break;
         }
     }

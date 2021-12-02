@@ -5,7 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Api_instence {
 
-    static String BASE_URL="http://hrm.like2gift.com/api/";
+   static String BASE_URL="http://hrm.like2gift.com/api/";
+  // static String BASE_URL="https://sampark.organicindia.com/api/";
 
     private static Retrofit retrofit;
 

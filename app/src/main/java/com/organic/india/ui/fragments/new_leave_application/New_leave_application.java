@@ -4,19 +4,14 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,44 +24,33 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.organic.india.R;
 import com.organic.india.adapter.Leave_chart_adapter;
 import com.organic.india.adapter.Leave_type_spinner_adapter;
 import com.organic.india.common.Constant;
 import com.organic.india.common.Functions_common;
-import com.organic.india.data.Api_Interfaces;
 import com.organic.india.data.Api_instence;
-import com.organic.india.pojo.attendance_log.Attendance_log;
 import com.organic.india.pojo.pending_leave.Data;
 import com.organic.india.pojo.pending_leave.Pending_leave;
-import com.organic.india.pojo.team_listing.Team_listing;
 import com.organic.india.providers.FileUtils;
 import com.organic.india.singletone.Organic_india;
+import com.organic.india.utils.helper.Helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -102,6 +86,7 @@ public class New_leave_application extends Fragment {
     List<String> permissions = new ArrayList<>();
 
     static final int ChooseImage = 654;
+    File imgFile = null;
 
     @BindView(R.id.leave_spinner)Spinner leave_spinner;
     @BindView(R.id.tv_add_leave)TextView tv_add_leave;
@@ -135,6 +120,7 @@ public class New_leave_application extends Fragment {
         functions_common=new Functions_common(getActivity(), new Functions_common.Permission_handle() {
             @Override
             public void granted() {
+
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -161,6 +147,9 @@ public class New_leave_application extends Fragment {
 
                 ll_upload_file.setVisibility(available_leaves.get(i).getLeaveCategory().equals("Medical Leave (ML)")?View.VISIBLE:View.GONE);
                 leave_category_id=""+available_leaves.get(i).getLeaveCategoryId();
+
+                Log.e("leave_type",""+available_leaves.get(i).getLeaveCategoryId()+" "+available_leaves.get(i).getLeaveCategory());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -193,14 +182,17 @@ public class New_leave_application extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-          if (requestCode == ChooseImage) {
+            if (requestCode == ChooseImage) {
                 if (data == null) {
                     return;
                 }
-                medical_certificate = data.getData();
+
+                //medical_certificate = Uri.parse(Helpers.getRealPathFromURI(data.getData(),getActivity()));
+               medical_certificate = data.getData();
                 iv_prescription.setImageURI(medical_certificate);
             }
         }
+
     }
 
 
@@ -211,62 +203,122 @@ public class New_leave_application extends Fragment {
          functions_common.show_loader("Requesting Leave Application");
 
          Map<String, RequestBody> map = new HashMap<>();
-         map.put("employee_id", RequestBody.create(MediaType.parse("text/plain"), employee_id));
-         map.put("employee_code", RequestBody.create(MediaType.parse("text/plain"), employee_code));
+         map.put("employee_id", RequestBody.create(MediaType.parse("text/plain"), ""+Organic_india.getInstance().getMe().getEmployeeId()));
+         map.put("employee_code", RequestBody.create(MediaType.parse("text/plain"),""+Organic_india.getInstance().getMe().getEmployeeCode()));
          map.put("leave_category_id", RequestBody.create(MediaType.parse("text/plain"), leave_category_id));
          map.put("start_date", RequestBody.create(MediaType.parse("text/plain"), start_date));
          map.put("end_date", RequestBody.create(MediaType.parse("text/plain"), end_date));
          map.put("optional_leave", RequestBody.create(MediaType.parse("text/plain"), optional_leave));
          map.put("reason", RequestBody.create(MediaType.parse("text/plain"), reason));
-         MultipartBody.Part prescription_part=null;
 
-         if(medical_certificate!=null && day_difference>2){
 
-             File file = new File(FileUtils.getPath(getContext(), medical_certificate));
-             prescription_part = MultipartBody.Part.createFormData("medical_certificate", file.getName(), RequestBody.create(MediaType.parse(FileUtils.getMimeType(getContext(), medical_certificate)), file));
 
+         if(leave_category_id.equals("1") && day_difference>2 && medical_certificate!=null){
+
+             MultipartBody.Part prescription_part=null;
+             try {
+
+                 File prescription = new File(FileUtils.getPath(getContext(), medical_certificate));
+                 prescription_part = MultipartBody.Part.createFormData("medical_certificate", prescription.getName(), RequestBody.create(MediaType.parse(FileUtils.getMimeType(getContext(), medical_certificate)), prescription));
+
+
+                 //   File imgFile = new Compressor(getContext()).compressToFile(temp);
+
+              //    prescription_part = MultipartBody.Part.createFormData("medical_certificate", imgFile.getName(),
+               //   RequestBody.create(MediaType.parse("image*//*"), imgFile));
+
+             } catch (Exception e) {
+                 e.printStackTrace();
+                 Log.e("pre_exe","file_path_exeption"+e.getMessage());
+             }
+
+             Api_instence.getRetrofitInstance().create_leave(map,prescription_part)
+                     .enqueue(new Callback<ResponseBody>() {
+                         @Override
+                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                             if (response.isSuccessful()){
+                                 try {
+                                     String create_leave = response.body().string();
+                                     JSONObject object = new JSONObject(create_leave);
+                                     switch (object.getInt("status")){
+
+                                         case 200:
+                                             functions_common.dismiss_loader();
+                                             functions_common.toast(""+object.getString("message"));
+                                             leave_actions.on_leave_request_added();
+                                             break;
+
+                                         default:
+                                             functions_common.dismiss_loader();
+                                             functions_common.toast(""+object.getString("message"));
+                                             break;
+                                     }
+                                     Log.e("create_leave",""+create_leave);
+
+                                 } catch (IOException | JSONException e) {
+                                     e.printStackTrace();
+                                     functions_common.dismiss_loader();
+                                     Log.e("create_leave","json "+e.getMessage());
+                                 }
+                             }else{
+                                 functions_common.dismiss_loader();
+                                 Log.e("create_leave","json "+response.message());
+                                 functions_common.toast("something went wrong");
+                             }
+                         }
+                         @Override
+                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                             functions_common.toast("sorry ! couldn't make a request");
+                             functions_common.dismiss_loader();
+                         }
+                     });
+         }else{
+
+             Log.e("dara","without "+leave_category_id+" "+day_difference);
+
+
+             Api_instence.getRetrofitInstance().create_leave(map)
+                     .enqueue(new Callback<ResponseBody>() {
+                         @Override
+                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                             if (response.isSuccessful()){
+                                 try {
+                                     String create_leave = response.body().string();
+                                     JSONObject object = new JSONObject(create_leave);
+                                     switch (object.getInt("status")){
+
+                                         case 200:
+                                             functions_common.dismiss_loader();
+                                             functions_common.toast(""+object.getString("message"));
+                                             leave_actions.on_leave_request_added();
+                                             break;
+
+                                         default:
+                                             functions_common.dismiss_loader();
+                                             functions_common.toast(""+object.getString("message"));
+                                             break;
+                                     }
+                                     Log.e("create_leave",""+create_leave);
+
+                                 } catch (IOException | JSONException e) {
+                                     e.printStackTrace();
+                                     functions_common.dismiss_loader();
+                                     Log.e("create_leave","json "+e.getMessage());
+                                 }
+                             }else{
+                                 functions_common.dismiss_loader();
+                                 Log.e("create_leave","json "+response.message());
+                                 functions_common.toast("something went wrong");
+                             }
+                         }
+                         @Override
+                         public void onFailure(Call<ResponseBody> call, Throwable t) {
+                             functions_common.toast("sorry ! couldn't make a request");
+                             functions_common.dismiss_loader();
+                         }
+                     });
          }
 
-         Api_instence.getRetrofitInstance().create_leave(map,prescription_part)
-                 .enqueue(new Callback<ResponseBody>() {
-                     @Override
-                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                         if (response.isSuccessful()){
-                             try {
-                                 String create_leave = response.body().string();
-                                 JSONObject object = new JSONObject(create_leave);
-                                 switch (object.getInt("status")){
-
-                                     case 200:
-                                         functions_common.dismiss_loader();
-                                         functions_common.toast(""+object.getString("message"));
-                                         leave_actions.on_leave_request_added();
-                                         break;
-
-                                     default:
-                                         functions_common.dismiss_loader();
-                                         functions_common.toast(""+object.getString("message"));
-                                         break;
-                                 }
-                                 Log.e("create_leave",""+create_leave);
-
-                             } catch (IOException | JSONException e) {
-                                 e.printStackTrace();
-                                 functions_common.dismiss_loader();
-                                 Log.e("create_leave","json "+e.getMessage());
-                             }
-                         }else{
-                             functions_common.dismiss_loader();
-                             Log.e("create_leave","json "+response.message());
-                             functions_common.toast("something went wrong");
-                         }
-                     }
-                     @Override
-                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                         functions_common.toast("sorry ! couldn't make a request");
-                         functions_common.dismiss_loader();
-                     }
-                 });
         }
 
     }
@@ -316,9 +368,21 @@ public class New_leave_application extends Fragment {
                         adapter.notifyDataSetChanged();
 
                         for (Data chart : chart_data){
-                            if (!chart.getPendingLeave().equals("0.00") && !chart.getPendingLeave().isEmpty()){
-                                available_leaves.add(chart);
+
+                            try {
+
+                                double range =0.05;
+                                double leave_value=Double.parseDouble(!chart.getPendingLeave().isEmpty()?chart.getPendingLeave():"0.00");
+                                if(leave_value>=range){
+                                    available_leaves.add(chart);
+                                }
+
+                            }catch (NumberFormatException e){
+                                Log.e("leave_chartparse",""+e.getMessage());
                             }
+//                            if (!chart.getPendingLeave().equals("0.00") && !chart.getPendingLeave().isEmpty()){
+//                                available_leaves.add(chart);
+//                            }
                         }
                         leave_type_spinner_adapter.notifyDataSetChanged();
                     }

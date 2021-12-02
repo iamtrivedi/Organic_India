@@ -16,6 +16,7 @@
         android:padding="@dimen/_5sdp">
 
         <LinearLayout
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_grey"
@@ -35,7 +36,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Emp-Id"
+                android:text="SL#"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />

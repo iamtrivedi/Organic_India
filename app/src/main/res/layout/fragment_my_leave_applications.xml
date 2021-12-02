@@ -9,6 +9,7 @@
     tools:context=".ui.fragments.my_leave_applications.My_leave_applications">
 
     <RelativeLayout
+        android:visibility="gone"
         style="@style/Widget.AppCompat.Toolbar"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -41,6 +42,7 @@
     </RelativeLayout>
 
     <TextView
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="My Leave Applications"
         android:textColor="#000"

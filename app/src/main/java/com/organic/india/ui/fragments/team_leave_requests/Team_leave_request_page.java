@@ -55,6 +55,7 @@ public class Team_leave_request_page extends Fragment implements View.OnClickLis
     @BindView(R.id.forwardButton)ImageView forwardButton;
     @BindView(R.id.rcy_attendance_report)RecyclerView rcy_attendance_report;
     @BindView(R.id.pb_progress)ProgressBar pb_progress;
+    @BindView(R.id.tv_no_found)TextView tv_no_found;
 
     View view;
 
@@ -102,6 +103,7 @@ public class Team_leave_request_page extends Fragment implements View.OnClickLis
 
 
         pb_progress.setVisibility(View.VISIBLE);
+        tv_no_found.setVisibility(View.GONE);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("employee_id", Organic_india.getInstance().getMe().getEmployeeId());
@@ -122,10 +124,12 @@ public class Team_leave_request_page extends Fragment implements View.OnClickLis
                                     leave_request.removeAll(leave_request);
                                     leave_request.addAll(response.body().getData());
                                     adapter.notifyDataSetChanged();
+                                    tv_no_found.setVisibility(leave_request.size()>0?View.GONE:View.VISIBLE);
                                     break;
 
                                 default:
-                                    functions_common.toast("no leave request found");
+                                    tv_no_found.setVisibility(View.VISIBLE);
+                                    functions_common.toast(response.body().getMessage());
                                     pb_progress.setVisibility(View.GONE);
                                     leave_request.removeAll(leave_request);
                                     adapter.notifyDataSetChanged();
@@ -179,10 +183,12 @@ public class Team_leave_request_page extends Fragment implements View.OnClickLis
 
                                 }
                                 functions_common.dismiss_loader();
+                                functions_common.toast(obj.getString("message"));
 
                             } catch (IOException | JSONException e) {
                                 e.printStackTrace();
                             }
+
                         }else{
                             functions_common.dismiss_loader();
                             functions_common.toast(response.message());

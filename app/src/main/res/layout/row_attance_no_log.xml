@@ -3,12 +3,13 @@
     android:id="@+id/ll_no_log_time"
     android:visibility="gone"
     android:layout_marginTop="@dimen/_10sdp"
-    android:padding="@dimen/_5sdp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/knldf"
+        android:padding="@dimen/_5sdp"
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/_5sdp"
         android:orientation="horizontal"
@@ -33,5 +34,12 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:layout_below="@+id/knldf"
+        android:background="#7FBF82"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
 
 </RelativeLayout>

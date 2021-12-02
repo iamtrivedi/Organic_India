@@ -21,6 +21,9 @@ public class Dashboard {
     @SerializedName("images")
     @Expose
     private List<Image> images = null;
+    @SerializedName("app_version")
+    @Expose
+    private List<AppVersion> appVersion = null;
 
     public Integer getStatus() {
         return status;
@@ -60,5 +63,13 @@ public class Dashboard {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public List<AppVersion> getAppVersion() {
+        return appVersion;
+    }
+
+    public void setAppVersion(List<AppVersion> appVersion) {
+        this.appVersion = appVersion;
     }
 }

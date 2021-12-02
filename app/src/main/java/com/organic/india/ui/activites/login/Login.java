@@ -19,6 +19,7 @@ import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.logged_in_user.Logged_in_user;
 import com.organic.india.singletone.Organic_india;
 import com.organic.india.ui.activites.main.MainActivity;
+import com.organic.india.ui.activites.splash.Splash_screen;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +80,7 @@ public class Login extends AppCompatActivity {
                           @Override
                           public void run(){
                               functions_common.dismiss_loader();
-                              startActivity(new Intent(Login.this,MainActivity.class));
+                              startActivity(new Intent(Login.this, Splash_screen.class));
                               finishAffinity();
                           }
                       },2000);

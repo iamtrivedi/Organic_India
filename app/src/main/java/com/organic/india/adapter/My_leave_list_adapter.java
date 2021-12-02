@@ -33,12 +33,13 @@ public class My_leave_list_adapter extends RecyclerView.Adapter<My_leave_list_ad
     @Override
     public void onBindViewHolder(@NonNull My_leave_list_adapter.ViewHolder holder, int position) {
 
-        holder.tv_reason.setText(data.get(position).getReason());
-        holder.tv_start_date.setText(data.get(position).getStartDate());
-        holder.tv_end_date.setText(data.get(position).getEndDate());
+        holder.tv_reason.setText(""+data.get(position).getReason());
+        holder.tv_start_date.setText(""+data.get(position).getStartDate());
+        holder.tv_end_date.setText(""+data.get(position).getEndDate());
         holder.tv_leave_days.setText(""+data.get(position).getLeaveDays());
-        holder.tv_leave_cat.setText(data.get(position).getLeaveCategory());
-        holder.tv_created_at.setText(data.get(position).getCreatedAt());
+        holder.tv_leave_cat.setText(""+data.get(position).getLeaveCategory());
+        holder.tv_created_at.setText(""+data.get(position).getCreatedAt());
+        holder.tv_index.setText(""+data.get(position).getSl());
 
 
         switch (data.get(position).getStatus()){
@@ -72,6 +73,7 @@ public class My_leave_list_adapter extends RecyclerView.Adapter<My_leave_list_ad
         @BindView(R.id.tv_leave_days)TextView tv_leave_days;
         @BindView(R.id.tv_leave_cat)TextView tv_leave_cat;
         @BindView(R.id.tv_created_at)TextView tv_created_at;
+        @BindView(R.id.tv_index)TextView tv_index;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

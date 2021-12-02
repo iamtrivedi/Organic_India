@@ -8,22 +8,19 @@ public class AttendanceReport {
 
     @SerializedName("day")
     @Expose
-    private Integer day;
+    private String day;
     @SerializedName("date")
     @Expose
     private String date;
     @SerializedName("holiday")
     @Expose
     private String holiday;
-    @SerializedName("weekly_off")
+    @SerializedName("holiday_title")
     @Expose
-    private String weeklyOff;
-    @SerializedName("status")
-    @Expose
-    private String status;
+    private String holidayTitle;
     @SerializedName("attendance_id")
     @Expose
-    private Integer attendanceId;
+    private String attendanceId;
     @SerializedName("actual_in_time")
     @Expose
     private String actualInTime;
@@ -36,12 +33,24 @@ public class AttendanceReport {
     @SerializedName("log")
     @Expose
     private String log;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("weekly_off")
+    @Expose
+    private String weeklyOff;
+    @SerializedName("leave")
+    @Expose
+    private String leave;
+    @SerializedName("leave_title")
+    @Expose
+    private String leaveTitle;
 
-    public Integer getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Integer day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
@@ -61,27 +70,19 @@ public class AttendanceReport {
         this.holiday = holiday;
     }
 
-    public String getWeeklyOff() {
-        return weeklyOff;
+    public String getHolidayTitle() {
+        return holidayTitle;
     }
 
-    public void setWeeklyOff(String weeklyOff) {
-        this.weeklyOff = weeklyOff;
+    public void setHolidayTitle(String holidayTitle) {
+        this.holidayTitle = holidayTitle;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getAttendanceId() {
+    public String getAttendanceId() {
         return attendanceId;
     }
 
-    public void setAttendanceId(Integer attendanceId) {
+    public void setAttendanceId(String attendanceId) {
         this.attendanceId = attendanceId;
     }
 
@@ -115,6 +116,38 @@ public class AttendanceReport {
 
     public void setLog(String log) {
         this.log = log;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getWeeklyOff() {
+        return weeklyOff;
+    }
+
+    public void setWeeklyOff(String weeklyOff) {
+        this.weeklyOff = weeklyOff;
+    }
+
+    public String getLeave() {
+        return leave;
+    }
+
+    public void setLeave(String leave) {
+        this.leave = leave;
+    }
+
+    public String getLeaveTitle() {
+        return leaveTitle;
+    }
+
+    public void setLeaveTitle(String leaveTitle) {
+        this.leaveTitle = leaveTitle;
     }
 
 }

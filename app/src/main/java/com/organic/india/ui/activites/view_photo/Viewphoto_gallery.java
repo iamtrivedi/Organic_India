@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.organic.india.R;
 import com.organic.india.adapter.Image_slider_adapter;
+import com.organic.india.common.Functions_common;
 import com.organic.india.pojo.dashboard.Image;
 import com.organic.india.ui.fragments.image_slide.Image_slide_item;
 
@@ -27,26 +28,32 @@ public class Viewphoto_gallery extends AppCompatActivity {
 
     @BindView(R.id.view_pager)ViewPager viewPager;
 
+    boolean is_link=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_viewphoto_gallery);
         ButterKnife.bind(this);
 
         adapter = new Image_slider_adapter(getSupportFragmentManager());
 
-        List<Image> list = new Gson().fromJson(getIntent().getStringExtra("images"), new TypeToken<List<Image>>(){}.getType());
-        images.addAll(list);
+        is_link=getIntent().getBooleanExtra("is_link",false);
 
-        for (Image image :images) {
-            adapter.addFragment(new Image_slide_item(image.getImg()),"");
+        if (is_link){
+            List<Image> list = new Gson().fromJson(getIntent().getStringExtra("images"), new TypeToken<List<Image>>(){}.getType());
+            images.addAll(list);
+            for (Image image :images) {
+                adapter.addFragment(new Image_slide_item(image.getImg(),true,0),"");
+            }
+        }else{
+            for (int resource  : Functions_common.slides()){
+                adapter.addFragment(new Image_slide_item("",false,resource),"");
+            }
         }
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(getIntent().getIntExtra("position",0));
-
     }
 }

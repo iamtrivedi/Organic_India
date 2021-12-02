@@ -70,7 +70,8 @@ public class Gallery_image_page extends AppCompatActivity {
             public void index(int pos) {
                 startActivity(new Intent(Gallery_image_page.this, Viewphoto_gallery.class)
                         .putExtra("images",pic_images)
-                        .putExtra("position",pos));
+                        .putExtra("position",pos)
+                        .putExtra("is_link",true));
             }
         });
         rcy_list.setLayoutManager(new GridLayoutManager(this, 3));
