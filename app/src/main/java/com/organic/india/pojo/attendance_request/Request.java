@@ -31,7 +31,7 @@ public class Request {
     private Integer attendanceStatus;
     @SerializedName("check_in")
     @Expose
-    private Object checkIn;
+    private String checkIn;
     @SerializedName("check_out")
     @Expose
     private Object checkOut;
@@ -139,11 +139,11 @@ public class Request {
         this.attendanceStatus = attendanceStatus;
     }
 
-    public Object getCheckIn() {
+    public String getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Object checkIn) {
+    public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
 
@@ -258,5 +258,4 @@ public class Request {
     public void setReasonName(String reasonName) {
         this.reasonName = reasonName;
     }
-
 }

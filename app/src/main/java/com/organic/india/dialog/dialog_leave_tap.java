@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import androidx.appcompat.app.AlertDialog;
-
 import com.organic.india.common.Constant;
 import com.organic.india.singletone.Organic_india;
 
@@ -58,7 +57,7 @@ public class dialog_leave_tap {
                         }
                         dialog.dismiss();
                     }
-                },500);
+                },250);
             }
         });
         AlertDialog alert = alertDialog.create();

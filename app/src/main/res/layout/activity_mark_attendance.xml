@@ -13,9 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <FrameLayout
-        android:id="@+id/frame"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_above="@+id/bottommenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.organic.india.custom_view.bottommenu.Bottom_menu
+            android:id="@+id/bottommenu"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
 
 </LinearLayout>

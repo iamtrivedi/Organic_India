@@ -28,7 +28,7 @@ public class Team_leave_request_adapter extends RecyclerView.Adapter<Team_leave_
 
     @Override
     public Team_leave_request_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_attendance_request,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_team_leave_request,parent,false);
         return  new ViewHolder(view);
     }
 

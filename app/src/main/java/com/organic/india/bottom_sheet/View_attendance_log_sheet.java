@@ -15,6 +15,7 @@ import com.organic.india.adapter.Atteandance_log_adapter;
 import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.attendance_log.Attendance_log;
 import com.organic.india.pojo.attendance_log.Log;
+import com.organic.india.pojo.attendance_report.AttendanceReport;
 import com.organic.india.singletone.Organic_india;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class View_attendance_log_sheet extends BottomSheetDialogFragment {
 
     String date;
     String employee_id,employee_code;
+    AttendanceReport report;
     public View_attendance_log_sheet(String date, String employee_id, String employee_code) {
         this.date = date;
         this.employee_id = employee_id;

@@ -17,7 +17,7 @@ public class Accept_or_Reject_attendance extends Dialog {
     Request request;
     React react;
 
-    TextView tv_date_time,tv_designation,tv_employeename,tv_reject,tv_accept;
+    TextView tv_date_time,tv_designation,tv_reason,tv_employeename,tv_reject,tv_accept;
 
 
     public Accept_or_Reject_attendance(@NonNull Context context, Request request, React react) {
@@ -37,6 +37,7 @@ public class Accept_or_Reject_attendance extends Dialog {
         tv_date_time=view.findViewById(R.id.tv_date_time);
         tv_designation=view.findViewById(R.id.tv_designation);
         tv_employeename=view.findViewById(R.id.tv_employeename);
+        tv_reason=view.findViewById(R.id.tv_reason);
         tv_reject=view.findViewById(R.id.tv_reject);
         tv_accept=view.findViewById(R.id.tv_accept);
 
@@ -48,6 +49,8 @@ public class Accept_or_Reject_attendance extends Dialog {
         tv_employeename.setText(request.getName());
         tv_designation.setText(request.getDesignation());
         tv_date_time.setText(date_time);
+
+        tv_reason.setText(request.getReasonName());
 
 
         tv_accept.setOnClickListener(v->{

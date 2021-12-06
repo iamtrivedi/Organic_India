@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
         String password=et_password.getText().toString();
 
         if (user_name.isEmpty() || password.isEmpty()){
-            functions_common.toast("email or password should't be blank");
+            functions_common.toast("email or password shouldn't be blank");
             return;
         }
 

@@ -35,7 +35,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Emp-Id"
+                android:text="SL#"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
@@ -132,41 +132,6 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:padding="@dimen/_5sdp"
-                android:src="@drawable/leave_cat_icon"
-                android:background="@drawable/background_color_circle_selector"
-                android:backgroundTint="@color/purple_200" />
-
-            <TextView
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Leave Category"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_leave_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/darkgrey"
-                android:textSize="@dimen/_10sdp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/app_grey"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/_5sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:padding="@dimen/_5sdp"
                 android:src="@drawable/date_cal_icon"
                 android:background="@drawable/background_color_circle_selector"
                 android:backgroundTint="@color/purple_200" />
@@ -175,48 +140,13 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Start Date"
+                android:text="Attendance Date"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_startdate_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textColor="@color/darkgrey"
-                android:textSize="@dimen/_10sdp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/_5sdp">
-
-            <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:padding="@dimen/_5sdp"
-                android:src="@drawable/date_cal_icon"
-                android:background="@drawable/background_color_circle_selector"
-                android:backgroundTint="@color/purple_200" />
-
-            <TextView
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="End Date"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_enddate_time"
+                android:id="@+id/tv_att_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -280,7 +210,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Status"
+                android:text="Actions"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />

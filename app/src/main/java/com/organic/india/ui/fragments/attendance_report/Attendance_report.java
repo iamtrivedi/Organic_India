@@ -304,7 +304,8 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 //                    continue;
 //                }
 
-            }catch (NullPointerException e){
+            }catch (Exception e){
+                Log.e("any_exeptio",""+e.getMessage());
                 continue;
             }
 
@@ -365,7 +366,25 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
                 public void update_attendance(JsonObject jsonObject) {
                     jsonObject.addProperty("in_time_lat", in_time_lat);
                     jsonObject.addProperty("in_time_long", in_time_long);
-                    updateattendance(jsonObject);
+
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Submit Attendance")
+                            .setMessage("Are you sure ?")
+                            .setCancelable(false)
+                            .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    updateattendance(jsonObject);
+                                }
+                            })
+                            .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                  dialogInterface.dismiss();
+                                }
+                            }).show();
+
+
                 }
             }).show(getChildFragmentManager(),"Request_add_atendance");
         }
@@ -614,9 +633,22 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
 
     public int day_icon(AttendanceReport report){
 
-        Log.d("status_day",""+report.getPresent());
+        long times_in_mil = Constant.yyyy_mm_dd_str_to_date(report.getDate()).getTimeInMillis();
 
-        if (report.getHoliday().equalsIgnoreCase("H")){
+        boolean is_day_grater = times_in_mil>Calendar.getInstance().getTimeInMillis();
+        boolean is_not_loged = report.getPresent().equalsIgnoreCase("A") || report.getPresent().isEmpty() || report.getPresent()==null;
+
+       // Log.d("status_day",""+(is_day_grater)+" "+(is_not_loged));
+
+        if (is_day_grater && report.getLeave().equalsIgnoreCase("L")){
+            return R.drawable.ca_leave;
+        }else if(is_day_grater && report.getHoliday().equalsIgnoreCase("H")){
+            return R.drawable.cal_holiday;
+        }else if(is_day_grater && report.getWeeklyOff().equalsIgnoreCase("W")){
+            return R.drawable.cal_weeknd;
+        }else if (is_day_grater && is_not_loged){
+            return R.drawable.cal_no_status;
+        }else if (report.getHoliday().equalsIgnoreCase("H")){
             return R.drawable.cal_holiday;
         }else if(report.getWeeklyOff().equalsIgnoreCase("W")) {
             return R.drawable.cal_weeknd;

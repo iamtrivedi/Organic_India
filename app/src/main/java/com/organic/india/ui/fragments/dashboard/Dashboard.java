@@ -168,6 +168,8 @@ public class Dashboard extends Fragment implements View.OnClickListener {
 
                        pic_images = new Gson().toJson(images);
 
+                       Log.e("pic_images",""+pic_images);
+
                        for (int i=0;i<response.body().getOrganizationChart().size();i++){
                            if (i==0){
                                Glide.with(getActivity()).load(response.body().getOrganizationChart().get(0).getImg())

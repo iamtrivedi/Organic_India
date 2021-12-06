@@ -53,7 +53,7 @@ public class dialog_attendance_tap {
                         }
                         dialog.dismiss();
                     }
-                },500);
+                },250);
             }
         });
         AlertDialog alert = alertDialog.create();

@@ -19,31 +19,27 @@
 
         <TextView
             android:id="@+id/tv_index"
+            android:paddingLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/_10sdp"
             android:singleLine="true"
             android:text="1"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/grey"/>
 
         <TextView
             android:id="@+id/tv_employeename"
+            android:paddingRight="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:textSize="@dimen/_13sdp"
             android:text="OIPL Code of Conduct 01.04.2021"
             android:textColor="@color/black" />
 
     </LinearLayout>
 
 
-
-    <TextView
-        android:background="#DFE3EF"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
 
 </RelativeLayout>

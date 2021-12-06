@@ -25,15 +25,20 @@ public class Organic_india extends MultiDexApplication {
         this.me = new Data();
     }
 
+
     public static synchronized Organic_india getInstance(){
         return app_instance;
     }
+
 
     public Data getMe(){
         return me;
     }
 
-    public void setMe(Data me) {
+
+
+    public void setMe(Data me){
         this.me = me;
     }
+
 }

@@ -13,6 +13,8 @@ import com.organic.india.R;
 import com.organic.india.adapter.Gallery_folder_adapter;
 import com.organic.india.adapter.Leave_chart_adapter;
 import com.organic.india.common.Functions_common;
+import com.organic.india.custom_view.bottommenu.Bottom_menu;
+import com.organic.india.custom_view.bottommenu.Bottom_step;
 import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.gallery_folder.Data;
 import com.organic.india.pojo.gallery_folder.Gallery_folder;
@@ -80,4 +82,5 @@ public class Gallery extends AppCompatActivity {
     public void back_press(View view){
       onBackPressed();
     }
+
 }

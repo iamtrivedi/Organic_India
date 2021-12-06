@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.organic.india.R;
 import com.organic.india.common.Location_permit;
+import butterknife.BindView;
 
 public class Attendance_location extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -30,6 +32,8 @@ public class Attendance_location extends AppCompatActivity implements OnMapReady
     private GoogleApiClient googleApiClient;
     boolean hasLocation = false;
     Double lat, lng;
+
+    @BindView(R.id.tv_employee_detail)TextView tv_employee_detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,6 @@ public class Attendance_location extends AppCompatActivity implements OnMapReady
             lat=getIntent().getDoubleExtra("LAT",00);
             lng=getIntent().getDoubleExtra("LNG",00);
         }
-
         buildGoogleApiClient();
         initilizeMap();
     }

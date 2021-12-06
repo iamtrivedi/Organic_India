@@ -11,10 +11,4 @@
         android:layout_height="wrap_content"
         android:text="Policy"
         />
-
-    <es.voghdev.pdfviewpager.library.PDFViewPager
-        android:id="@+id/pdfViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:assetFileName="adobe.pdf"/>
 </LinearLayout>

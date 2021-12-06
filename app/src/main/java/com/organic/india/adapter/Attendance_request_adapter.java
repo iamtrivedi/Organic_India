@@ -33,16 +33,10 @@ public class Attendance_request_adapter extends RecyclerView.Adapter<Attendance_
     @Override
     public void onBindViewHolder(@NonNull Attendance_request_adapter.ViewHolder holder, int position) {
 
-
-//        String date_time = data.get(position).getAttendanceDate()+"\n"+
-//                " Check in : "+data.get(position).getInTimeRequest()+"\n"+
-//                " Check out : "+data.get(position).getOutTimeRequest();
-
-        holder.tv_index.setText(""+data.get(position).getId());
+        holder.tv_index.setText(""+(position+1));
         holder.tv_employeename.setText(data.get(position).getName());
         holder.tv_designation.setText(data.get(position).getDesignation());
-        holder.tv_startdate_time.setText(data.get(position).getInTimeRequest());
-        holder.tv_enddate_time.setText(data.get(position).getOutTimeRequest());
+        holder.tv_att_date.setText(data.get(position).getAttendanceDate());
         holder.tv_requesttime.setText(data.get(position).getRequestTime());
 
         holder.iv_pending.setOnClickListener(v->{
@@ -58,7 +52,7 @@ public class Attendance_request_adapter extends RecyclerView.Adapter<Attendance_
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_index,tv_employeename,tv_designation,tv_leave_type,tv_startdate_time,tv_enddate_time,tv_requesttime;
+        TextView tv_index,tv_employeename,tv_designation,tv_att_date,tv_requesttime;
         ImageView iv_pending;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,9 +60,7 @@ public class Attendance_request_adapter extends RecyclerView.Adapter<Attendance_
             tv_index=itemView.findViewById(R.id.tv_index);
             tv_employeename=itemView.findViewById(R.id.tv_employeename);
             tv_designation=itemView.findViewById(R.id.tv_designation);
-            tv_leave_type=itemView.findViewById(R.id.tv_leave_type);
-            tv_startdate_time=itemView.findViewById(R.id.tv_startdate_time);
-            tv_enddate_time=itemView.findViewById(R.id.tv_enddate_time);
+            tv_att_date=itemView.findViewById(R.id.tv_att_date);
             tv_requesttime=itemView.findViewById(R.id.tv_requesttime);
             iv_pending=itemView.findViewById(R.id.iv_pending);
         }

@@ -1,6 +1,8 @@
 package com.organic.india.ui.activites.policies;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.JsonObject;
 import com.organic.india.R;
 import com.organic.india.adapter.Policies_list_adapter;
+import com.organic.india.async.Download_file;
 import com.organic.india.common.Functions_common;
 import com.organic.india.data.Api_instence;
 import com.organic.india.pojo.policy.Get_policy;
 import com.organic.india.pojo.policy.Policy;
 import com.organic.india.singletone.Organic_india;
+import com.organic.india.ui.activites.webview.Webview_page;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -39,7 +43,25 @@ public class Policies_page extends AppCompatActivity {
         ButterKnife.bind(this);
         functions_common = new Functions_common(this);
 
-        adapter = new Policies_list_adapter(data,this);
+        adapter = new Policies_list_adapter(data, this, new Policies_list_adapter.View_pdf() {
+            @Override
+            public void url(String url) {
+               new Download_file(new Download_file.Download_result() {
+                   @Override
+                   public void getPath(String path) {
+
+                       startActivity(new Intent(Policies_page.this, Webview_page.class)
+                               .putExtra("pdf_link",""+path));
+
+                       Log.e("pdf_link","failed "+path);                   }
+
+                   @Override
+                   public void failed(String cause) {
+                       Log.e("pdf_link","failed "+cause);
+                   }
+               },Policies_page.this).execute(url);
+            }
+        });
         rcy_policy.setLayoutManager(new LinearLayoutManager(this));
         rcy_policy.setAdapter(adapter);
 

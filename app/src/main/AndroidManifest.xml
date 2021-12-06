@@ -20,8 +20,12 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.OrganicIndia"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.activites.webview.Webview_page"
+            android:exported="false" />
         <activity
             android:name=".ui.activites.view_pdf.Viewpdf_page"
             android:exported="false" />
@@ -97,7 +101,6 @@
         <activity android:name=".ui.activites.splash.Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,5 +1,6 @@
 package com.organic.india.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,19 +13,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.organic.india.R;
+import com.organic.india.async.Download_file;
 import com.organic.india.pojo.policy.Policy;
-import com.organic.india.ui.activites.view_pdf.Viewpdf_page;
+import com.organic.india.ui.activites.webview.Webview_page;
 
 import java.util.List;
 
 public class Policies_list_adapter extends RecyclerView.Adapter<Policies_list_adapter.ViewHolder> {
 
     List<Policy> data;
-    Context context;
+    Activity context;
+    View_pdf view_pdf;
 
-    public Policies_list_adapter(List<Policy> data, Context context) {
+    public Policies_list_adapter(List<Policy> data, Activity context, View_pdf view_pdf) {
         this.data = data;
         this.context = context;
+        this.view_pdf = view_pdf;
     }
 
     @NonNull
@@ -46,19 +50,22 @@ public class Policies_list_adapter extends RecyclerView.Adapter<Policies_list_ad
 
             Log.e("pdf_link",""+data.get(position).getPdf());
 
-            context.startActivity(new Intent(context, Viewpdf_page.class)
-            .putExtra("pdf_link",""+data.get(position).getPdf()));
+            new Download_file(new Download_file.Download_result() {
+                @Override
+                public void getPath(String path) {
 
-//            String url = ""+data.get(position).getPdf();
-//            Intent i = new Intent(Intent.ACTION_VIEW);
-//            i.setData(Uri.parse(url));
-//            context.startActivity(i);
+                    context.startActivity(new Intent(context, Webview_page.class)
+                   .putExtra("pdf_link",""+path));
 
-//            Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-//            browserIntent.setDataAndType(Uri.parse(data.get(position).getPdf()), "application/pdf");
-//            Intent chooser = Intent.createChooser(browserIntent,"Browse via");
-//            chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // optional
-//            context.startActivity(chooser);
+                    Log.e("pdf_link","downloaded path "+path);
+                }
+
+                @Override
+                public void failed(String cause) {
+                    Log.e("pdf_link","failed "+cause);
+                }
+            },context).execute(data.get(position).getPdf());
+
         });
 
     }
@@ -82,5 +89,10 @@ public class Policies_list_adapter extends RecyclerView.Adapter<Policies_list_ad
             tv_updated_at=itemView.findViewById(R.id.tv_updated_at);
             iv_view=itemView.findViewById(R.id.iv_view);
         }
+    }
+
+
+    public interface View_pdf{
+        void url(String url);
     }
 }

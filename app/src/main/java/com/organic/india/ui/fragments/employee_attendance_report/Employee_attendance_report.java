@@ -55,7 +55,7 @@ public class Employee_attendance_report extends Fragment {
             public void selected_player(Employee employee,int pos){
                 team_player.selected_player(employee,employees,pos);
             }
-        });
+        },getContext());
         rcy_list.setAdapter(adapter);
 
         fetch_team_list();
