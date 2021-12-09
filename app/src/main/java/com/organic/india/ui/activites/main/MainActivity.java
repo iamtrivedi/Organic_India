@@ -19,6 +19,7 @@ import com.organic.india.common.SharedPreferenceUtils;
 import com.organic.india.dialog.dialog_attendance_tap;
 import com.organic.india.dialog.dialog_leave_tap;
 import com.organic.india.pojo.attendance.Attendance;
+import com.organic.india.pojo.dashboard.PendingRequest;
 import com.organic.india.singletone.Organic_india;
 import com.organic.india.ui.activites.gallery.Gallery;
 import com.organic.india.ui.activites.login.Login;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.tv_logout)TextView tv_logout;
     @BindView(R.id.nav_whowho)TextView nav_whowho;
     @BindView(R.id.nav_policy)TextView nav_policy;
+    @BindView(R.id.tv_leave_count)TextView tv_leave_count;
+    @BindView(R.id.tv_attendance_count)TextView tv_attendance_count;
 
     @BindView(R.id.nav_tv_team_leave)TextView nav_tv_team_leave;
     @BindView(R.id.nav_team_leave_report)TextView nav_team_leave_report;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ll_manager_leave_option.setVisibility(Organic_india.getInstance().getMe().getIrm().equals("manager")?View.VISIBLE:View.GONE);
         ll_manager_attendance_option.setVisibility(Organic_india.getInstance().getMe().getIrm().equals("manager")?View.VISIBLE:View.GONE);
+        nav_mark_attendence.setVisibility(Organic_india.getInstance().getMe().getOnlineAppAttendance().equalsIgnoreCase("yes")?View.VISIBLE:View.GONE);
 
 
         iv_drawer.setOnClickListener(this);
@@ -105,7 +109,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (route) {
 
             case Constant.Route.Dashboard:
-                loadFragment(new Dashboard());
+                loadFragment(new Dashboard(new Dashboard.Dashboard_data() {
+                    @Override
+                    public void manager_roles_notifications(PendingRequest pendingRequest) {
+                        try {
+
+                            tv_attendance_count.setText(""+pendingRequest.getAttendanceRequest());
+                            tv_leave_count.setText(""+pendingRequest.getLeaveRequest());
+
+                            tv_leave_count.setVisibility(pendingRequest.getLeaveRequest()>0?View.VISIBLE:View.GONE);
+                            tv_attendance_count.setVisibility(pendingRequest.getAttendanceRequest()>0?View.VISIBLE:View.GONE);
+
+                        }catch (Exception e){
+                            tv_leave_count.setVisibility(View.GONE);
+                            tv_attendance_count.setVisibility(View.GONE);
+                        }
+                    }
+                }));
                 break;
 
             case Constant.Route.New_leave_application:
@@ -177,7 +197,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             case Constant.Route.BM_home:
-                 loadFragment(new Dashboard());
+                 loadFragment(new Dashboard(new Dashboard.Dashboard_data() {
+                     @Override
+                     public void manager_roles_notifications(PendingRequest pendingRequest) {
+                         try {
+
+                             tv_attendance_count.setText(""+pendingRequest.getAttendanceRequest());
+                             tv_leave_count.setText(""+pendingRequest.getLeaveRequest());
+
+                             tv_leave_count.setVisibility(pendingRequest.getLeaveRequest()>0?View.VISIBLE:View.GONE);
+                             tv_attendance_count.setVisibility(pendingRequest.getAttendanceRequest()>0?View.VISIBLE:View.GONE);
+
+                         }catch (Exception e){
+                             tv_leave_count.setVisibility(View.GONE);
+                             tv_attendance_count.setVisibility(View.GONE);
+                         }
+                     }
+                 }));
                 break;
 
 

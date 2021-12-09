@@ -47,6 +47,8 @@ import com.organic.india.pojo.attendance_report.Attendance_report_res;
 import com.organic.india.pojo.team_listing.Employee;
 import com.organic.india.pojo.update_attendance.Update_attendance_res;
 import com.organic.india.singletone.Organic_india;
+import com.organic.india.ui.activites.contact_hr.Contact_hr_page;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -626,7 +628,12 @@ public class Attendance_report extends Fragment implements GoogleApiClient.Conne
         if (view_log){
             new View_attendance_log_sheet(date,employee_id,employee_code).show(getFragmentManager(),"View_attendance_log_sheet");
         }else{
-            request_add_attendance(date,report);
+
+            if(report.getStatus().equalsIgnoreCase("Please Contact HR For Attendance Regularization")){
+               startActivity(new Intent(getContext(), Contact_hr_page.class));
+            }else{
+                request_add_attendance(date,report);
+            }
         }
     }
 

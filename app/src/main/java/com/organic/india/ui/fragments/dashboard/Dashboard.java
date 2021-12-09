@@ -40,14 +40,12 @@ import com.organic.india.pojo.dashboard.AppVersion;
 import com.organic.india.pojo.dashboard.Image;
 import com.organic.india.pojo.dashboard.OrganizationChart;
 import com.organic.india.pojo.dashboard.Pdf;
-import com.organic.india.pojo.logged_in_user.Logged_in_user;
+import com.organic.india.pojo.dashboard.PendingRequest;
 import com.organic.india.singletone.Organic_india;
 import com.organic.india.ui.activites.view_photo.Viewphoto_gallery;
 import com.organic.india.utils.helper.CenterZoomLayoutManager;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -91,7 +89,9 @@ public class Dashboard extends Fragment implements View.OnClickListener {
 
     String pic_images = "";
 
-    public Dashboard(){
+    Dashboard_data dashboard_data;
+    public Dashboard(Dashboard_data dashboard_data) {
+        this.dashboard_data = dashboard_data;
     }
 
     @Override
@@ -172,6 +172,9 @@ public class Dashboard extends Fragment implements View.OnClickListener {
 
                        for (int i=0;i<response.body().getOrganizationChart().size();i++){
                            if (i==0){
+
+                           //    Picasso.get().load(response.body().getOrganizationChart().get(0).getImg()).into(iv_trust_img);
+
                                Glide.with(getActivity()).load(response.body().getOrganizationChart().get(0).getImg())
                                        .placeholder(R.drawable.image_placeholder).apply(new RequestOptions()).into(iv_trust_img);
 
@@ -204,6 +207,9 @@ public class Dashboard extends Fragment implements View.OnClickListener {
                              e.printStackTrace();
                          }
                          ll_oi_journey.setVisibility(View.VISIBLE);
+
+                         dashboard_data.manager_roles_notifications(response.body().getPendingRequest());
+
                      }
                     }
                     @Override
@@ -256,5 +262,9 @@ public class Dashboard extends Fragment implements View.OnClickListener {
               });
               break;
       }
+    }
+
+    public interface Dashboard_data{
+        void manager_roles_notifications(PendingRequest pendingRequest);
     }
 }

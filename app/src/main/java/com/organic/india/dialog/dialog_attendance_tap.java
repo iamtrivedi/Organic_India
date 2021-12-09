@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import androidx.appcompat.app.AlertDialog;
-
 import com.organic.india.common.Constant;
 import com.organic.india.singletone.Organic_india;
 
@@ -24,9 +23,20 @@ public class dialog_attendance_tap {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
         if (Organic_india.getInstance().getMe().getIrm().equals("manager")){
-            items = new String[]{"Mark Attendance", "Attendance Report","Request Attendance Report"};
+
+            if (Organic_india.getInstance().getMe().getOnlineAppAttendance().equalsIgnoreCase("yes")){
+                items = new String[]{"Mark Attendance", "Attendance Report","Request Attendance Report"};
+            }else{
+                items = new String[]{"Attendance Report","Request Attendance Report"};
+            }
+
+
         }else{
-            items = new String[]{"Mark Attendance", "Attendance Report"};
+            if (Organic_india.getInstance().getMe().getOnlineAppAttendance().equalsIgnoreCase("YES")){
+                items = new String[]{"Mark Attendance", "Attendance Report"};
+            }else{
+                items = new String[]{"Attendance Report"};
+            }
         }
 
         int checkedItem = -1;

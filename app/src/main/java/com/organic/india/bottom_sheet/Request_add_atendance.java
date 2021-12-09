@@ -108,6 +108,12 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
             tv_end_time.setText("-");
         }
 
+        if(report.getStatus().equalsIgnoreCase("Please Contact HR For Attendance Regularization")){
+            tv_submit.setBackgroundColor(getContext().getResources().getColor(R.color.yellow));
+            tv_submit.setTextColor(getContext().getResources().getColor(R.color.black));
+            tv_submit.setText("Contact HR");
+        }
+
 
 
         tv_end_time.setOnClickListener(this::onClick);
@@ -124,128 +130,131 @@ public class Request_add_atendance extends BottomSheetDialogFragment implements 
 
     @Override
     public void onClick(View view) {
-       switch (view.getId()){
+        switch (view.getId()){
 
 
-           case R.id.tv_end_time:
+            case R.id.tv_end_time:
 
-               TimePickerDialog picker_end = new TimePickerDialog(getContext(),
-                       new TimePickerDialog.OnTimeSetListener(){
-                           @Override
-                           public void onTimeSet(TimePicker tp, int sHour, int sMinute){
+                TimePickerDialog picker_end = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener(){
+                            @Override
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute){
 
-                               end_time_cal.set(end_time_cal.get(Calendar.YEAR), end_time_cal.get(Calendar.MONTH), end_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
-                               long timeInMillis = end_time_cal.getTimeInMillis();
-                               Date date_c = new Date();
-                               date_c.setTime(timeInMillis);
-                               end_time_cal.setTime(date_c);
+                                end_time_cal.set(end_time_cal.get(Calendar.YEAR), end_time_cal.get(Calendar.MONTH), end_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
+                                long timeInMillis = end_time_cal.getTimeInMillis();
+                                Date date_c = new Date();
+                                date_c.setTime(timeInMillis);
+                                end_time_cal.setTime(date_c);
 
-                               if (end_time_cal.after(start_time_cal)){
+                                if (end_time_cal.after(start_time_cal)){
 
-                                   SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
-                                   out_time_request = sdf.format(end_time_cal.getTime());
-                                   tv_end_time.setText(out_time_request);
+                                    SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
+                                    out_time_request = sdf.format(end_time_cal.getTime());
+                                    tv_end_time.setText(out_time_request);
 
-                               }else{
-                                 functions_common.toast("selected invalid time");
-                               }
-                               Log.e("selected_time","end "+end_time_cal.getTime());
+                                }else{
+                                    functions_common.toast("selected invalid time");
+                                }
+                                Log.e("selected_time","end "+end_time_cal.getTime());
 
-                           }
-                       }, end_time_cal.get(Calendar.HOUR_OF_DAY), end_time_cal.get(Calendar.MINUTE), false);
-               picker_end.show();
-               break;
+                            }
+                        }, end_time_cal.get(Calendar.HOUR_OF_DAY), end_time_cal.get(Calendar.MINUTE), false);
+                picker_end.show();
+                break;
 
-           case R.id.tv_start_time:
+            case R.id.tv_start_time:
 
-               TimePickerDialog picker_star_time = new TimePickerDialog(getContext(),
-                       new TimePickerDialog.OnTimeSetListener(){
-                           @Override
-                           public void onTimeSet(TimePicker tp, int sHour, int sMinute){
+                TimePickerDialog picker_star_time = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener(){
+                            @Override
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute){
 
-                               start_time_cal.set(start_time_cal.get(Calendar.YEAR), start_time_cal.get(Calendar.MONTH), start_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
-                               long timeInMillis = start_time_cal.getTimeInMillis();
-                               Date date_c = new Date();
-                               date_c.setTime(timeInMillis);
-                               start_time_cal.setTime(date_c);
+                                start_time_cal.set(start_time_cal.get(Calendar.YEAR), start_time_cal.get(Calendar.MONTH), start_time_cal.get(Calendar.DATE), sHour, sMinute, 0);
+                                long timeInMillis = start_time_cal.getTimeInMillis();
+                                Date date_c = new Date();
+                                date_c.setTime(timeInMillis);
+                                start_time_cal.setTime(date_c);
 
-                               if (start_time_cal.before(end_time_cal)){
+                                if (start_time_cal.before(end_time_cal)){
 
-                                   SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
-                                   in_time_request = sdf.format(start_time_cal.getTime());
-                                   tv_start_time.setText(in_time_request);
+                                    SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss aa");
+                                    in_time_request = sdf.format(start_time_cal.getTime());
+                                    tv_start_time.setText(in_time_request);
 
-                               }else{
-                                   functions_common.toast("selected invalid time");
-                               }
-                               Log.e("selected_time","start "+start_time_cal.getTime());
+                                }else{
+                                    functions_common.toast("selected invalid time");
+                                }
+                                Log.e("selected_time","start "+start_time_cal.getTime());
 
-                           }
-                       }, start_time_cal.get(Calendar.HOUR_OF_DAY), start_time_cal.get(Calendar.MINUTE), false);
-               picker_star_time.show();
-               break;
+                            }
+                        }, start_time_cal.get(Calendar.HOUR_OF_DAY), start_time_cal.get(Calendar.MINUTE), false);
+                picker_star_time.show();
+                break;
 
 
 
-           case R.id.ll_option:
-               ll_option_list.setVisibility(ll_option_list.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
-               break;
+            case R.id.ll_option:
+                ll_option_list.setVisibility(ll_option_list.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
+                break;
 
-           case R.id.tv_forget_to_mark:
-               reason="1";
-               tv_selected_option.setText(tv_forget_to_mark.getText().toString());
-               ll_option_list.setVisibility(View.GONE);
-               break;
+            case R.id.tv_forget_to_mark:
+                reason="1";
+                tv_selected_option.setText(tv_forget_to_mark.getText().toString());
+                ll_option_list.setVisibility(View.GONE);
+                break;
 
-           case R.id.tv_with_client:
-               reason="2";
-               tv_selected_option.setText(tv_with_client.getText().toString());
-               ll_option_list.setVisibility(View.GONE);
-               break;
+            case R.id.tv_with_client:
+                reason="2";
+                tv_selected_option.setText(tv_with_client.getText().toString());
+                ll_option_list.setVisibility(View.GONE);
+                break;
 
-           case R.id.tv_on_duty:
-               reason="3";
-               tv_selected_option.setText(tv_on_duty.getText().toString());
-               ll_option_list.setVisibility(View.GONE);
-               break;
+            case R.id.tv_on_duty:
+                reason="3";
+                tv_selected_option.setText(tv_on_duty.getText().toString());
+                ll_option_list.setVisibility(View.GONE);
+                break;
 
-           case R.id.tv_work_from_home:
-               reason="4";
-               tv_selected_option.setText(tv_work_from_home.getText().toString());
-               ll_option_list.setVisibility(View.GONE);
-               break;
+            case R.id.tv_work_from_home:
+                reason="4";
+                tv_selected_option.setText(tv_work_from_home.getText().toString());
+                ll_option_list.setVisibility(View.GONE);
+                break;
 
-           case R.id.tv_submit:
-               submit_data();
-               break;
+            case R.id.tv_submit:
+                submit_data();
+                break;
 
-           case R.id.tv_cancel:
-               this.dismiss();
-               break;
+            case R.id.tv_cancel:
+                this.dismiss();
+                break;
 
-       }
+        }
     }
 
     void submit_data(){
 
-        if (reason.isEmpty()){
-            functions_common.toast("please select reason");
-            return;
+        if (tv_submit.getText().toString().equalsIgnoreCase("Contact HR")){
+            this.dismiss();
+        }else{
+            if (reason.isEmpty()){
+                functions_common.toast("please select reason");
+                return;
+            }
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("employee_id", Organic_india.getInstance().getMe().getEmployeeId());
+            jsonObject.addProperty("employee_code",Organic_india.getInstance().getMe().getEmployeeCode());
+            jsonObject.addProperty("in_time_request",in_time_request);
+            jsonObject.addProperty("out_time_request", out_time_request);
+            jsonObject.addProperty("attendance_date", attendance_date);
+            jsonObject.addProperty("in_time_ip", in_time_ip);
+            jsonObject.addProperty("reason", reason);
+
+            action.update_attendance(jsonObject);
+
+            this.dismiss();
         }
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("employee_id", Organic_india.getInstance().getMe().getEmployeeId());
-        jsonObject.addProperty("employee_code",Organic_india.getInstance().getMe().getEmployeeCode());
-        jsonObject.addProperty("in_time_request",in_time_request);
-        jsonObject.addProperty("out_time_request", out_time_request);
-        jsonObject.addProperty("attendance_date", attendance_date);
-        jsonObject.addProperty("in_time_ip", in_time_ip);
-        jsonObject.addProperty("reason", reason);
-
-        action.update_attendance(jsonObject);
-
-        this.dismiss();
-
     }
 
     public interface  Action{

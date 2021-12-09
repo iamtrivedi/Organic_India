@@ -24,6 +24,9 @@ public class Dashboard {
     @SerializedName("app_version")
     @Expose
     private List<AppVersion> appVersion = null;
+    @SerializedName("pending_request")
+    @Expose
+    private PendingRequest pendingRequest;
 
     public Integer getStatus() {
         return status;
@@ -71,5 +74,13 @@ public class Dashboard {
 
     public void setAppVersion(List<AppVersion> appVersion) {
         this.appVersion = appVersion;
+    }
+
+    public PendingRequest getPendingRequest() {
+        return pendingRequest;
+    }
+
+    public void setPendingRequest(PendingRequest pendingRequest) {
+        this.pendingRequest = pendingRequest;
     }
 }

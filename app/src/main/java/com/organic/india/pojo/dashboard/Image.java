@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image {
 
+    public Image(String img) {
+        this.img = img;
+    }
+
     @SerializedName("img")
     @Expose
     private String img;
@@ -15,12 +19,5 @@ public class Image {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public Image(String img) {
-        this.img = img;
-    }
-
-    public Image() {
     }
 }

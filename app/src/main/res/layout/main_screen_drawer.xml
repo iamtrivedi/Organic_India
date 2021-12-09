@@ -60,6 +60,7 @@
                 <TextView
                     android:id="@+id/nav_mark_attendence"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mark Attendance"

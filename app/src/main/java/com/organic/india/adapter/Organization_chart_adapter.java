@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -36,6 +35,9 @@ public class Organization_chart_adapter extends RecyclerView.Adapter<Organizatio
     public void onBindViewHolder(@NonNull Organization_chart_adapter.ViewHolder holder, int position) {
 
         holder.ll_row_chart.setVisibility(View.VISIBLE);
+
+     //   Picasso.get().load(data.get(position).getImg()).into(holder.iv_trust_img);
+
 
         Glide.with(context).load(data.get(position).getImg())
                 .placeholder(R.drawable.image_placeholder).apply(new RequestOptions()).into(holder.iv_trust_img);
